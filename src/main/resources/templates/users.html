@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org"
+        th:object="${userslist}">
+<head>
+    <meta charset="UTF-8"
+          http-equiv="Content-Type" content="text/html">
+    <title>USERS TITLE</title>
+    <style>
+        .flex-container {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        background-color: #111111;
+        text-align: center
+        }
+        .flex-container > ul, li {
+        margin: 50px;
+        padding: 20px;
+        font-size: 30px;
+        color: #ffffff
+        }
+    </style>
+</head>
+<body>
+<br>
+<div th:if="${not #lists.isEmpty(userslist)&& userslist != null}" class="flex-container">
+    <ul >Here is list of users</ul>
+    <li th:each="user : ${userslist}" th:text="${user?.name + '(' + user.nickname + ')'}"></li>
+</div>
+</body>
+</html>

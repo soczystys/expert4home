@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"
+          http-equiv="Content-Type" content="text/html">
+    <title>Expert4Home</title>
+</head>
+<body>
+<h1 th:text="#{message.text}"></h1>
+<p th:text="#{messageFinally}">Welcome to the home page</p>
+<br>
+<a th:href="@{/users}">Show list of users</a>
+<a th:href="@{/login}">Login to your account</a>
+<a th:href="@{/register}">No account? Create one</a>
+
+</body>
+</html>
