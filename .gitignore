@@ -1,9 +1,11 @@
-HELP.md
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**
 !**/src/test/**
+
+### OS X ###
+.DS_Store
 
 ### STS ###
 .apt_generated
@@ -31,5 +33,8 @@ out/
 ### VS Code ###
 .vscode/
 
-### OS X ###
-.DS_Store
+### Texmaker ###
+docs/*.aux
+docs/*.gz
+docs/*.log
+docs/*.out
