@@ -93,7 +93,8 @@ K. Malinowski, P. Piętka, B.Zdrojewski}
 	posiada on prostą i przejrzystą składnie ułatwiającą pracę. Mimo ułatwienia jakim jest Gradle, nie jest
 	wystarczającym środkiem zapewnienia spójności. W celu osiągnięcia jej postanowiliśmy skorzystać z
 	kontenerów Dockerowych. Ze względu na rozmiar kontenerów Windowsowych, jedyną możliwą opcją są kontenery
-	Linuxowe. Oznacza to iż platformą docelową dla każdego fragmentu aplikacji jest Alpine Linux. Konteneryzacja aplikacji ułatwia również późniejsze uruchomienie jej w środowisku chmurowym. Każdy z 3 najpopularniejszych
+	Linuxowe. Oznacza to iż platformą docelową dla każdego fragmentu aplikacji jest Alpine Linux. Konteneryzacja
+	aplikacji ułatwia również późniejsze uruchomienie jej w środowisku chmurowym. Każdy z 3 najpopularniejszych
 	dostawców oferuje hosting dla kontenerów.
   
 	\subsection{Zastosowane technologie}
@@ -116,6 +117,20 @@ K. Malinowski, P. Piętka, B.Zdrojewski}
 	  
 	\subsubsection{Wdrożenie oprogramowania}
 	todo km+pp docker
+
+	Istnienie kontenerów Dockerowy otwiera przed naszym zespołem wiele nowych możliwości. Dzięki sposobowi dystrybucji
+	jakim jest Docker Hub w bardzo prosty sposób można uzyskać dostęp do wielu jż stworzonych obrazów dysków. Możliwym
+	jest również rozstawienie własnego rejestru obrazów. W efekcie pobieranie wszelkiego rodzaju zależności sprowadza
+	się do jednej komendy, gdzie każda zależności "myśli" że jest oddzielnym systemem operacyjnym. Przykładowo,
+	jeżeli potrzebujemy bazy postgreSQL wystarczy wywołać komendę \texttt{docker pull postgres}, odpowiedni obraz
+	zostanie pobrany.
+	
+	Docelowo środowiskiem produkcyjnym aplikacji będzie chmura Microsoft Azure. Dokładnie oferowany przez MSA hosting
+	kontenerów. Zdecydowaliśmy się na Azure ze względu na możliwość połączenia ponieważ korzystamy z pakietu Azure DevOps. 
+	Azure Devops pozwala na zarządzanie zadaniami, hostowanie prywatnych rejestrów Dockerowych oraz co najważniejsze,
+	pozwala na definiowanie procesów CI/CD. W odpowiednim etapie dojrzałości projektu planujemy skorzystać z właśnie
+	tej funkcjonalności w celu usprawnienia całego procesu wytwarzania oprogramowania.
+
 	  
 	\subsection{Plan testów}
 	todo km jednostkowe, integracyjne, sam wiesz lepiej
