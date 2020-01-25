@@ -102,7 +102,14 @@ K. Malinowski, P. Piętka, B.Zdrojewski}
 	todo jg+sk react
 	
 	\subsubsection{Back-end}	
-	todo kd+km+pp springboot, mysql, nginx	
+	todo kd+km springboot, mysql
+	\paragraph{Nginx}
+	Przez wiele lat dominującym serwerem http na rynku był Apache. W 2019 został on zdetronizowany przez Nginxa. 
+	Zdecydowaliśmy się użyć nowego króla. Głównych jego cechą jest możliwość obsługiwania bardzo dużej liczby
+	połączeń jednocześnie, dzięki asynchronicznemu podejściu do obsługi zapytań. Apache obsługuje połączenia
+	synchronicznie, tj. tworzy nowy proces dla każdego połączenia. Ponad to składnia konfiguracji Nginx jest
+	znacznie bardziej przejrzysta niż konfiguracja Apache. Dodatkową zaletą Nginxa jest jego popularność. Oznacza
+	to iż w sytuacji natrafienia na trudności istnieje duża szansa iż ktoś już kiedyś natrafił na podobny problem.
 	
 	\subsubsection{Kontrola wersji}
 	todo bz git
