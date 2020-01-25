@@ -84,7 +84,17 @@ K. Malinowski, P. Piętka, B.Zdrojewski}
 	\section{Szczegóły implementacji}  
   
 	\subsection{Środowisko deweloperskie}  
-	todo pp windows/linux, intelij, wersje
+	todo pp windows/linux, gradle, java 8
+
+	Jednym z ważniejszych wyzwań jest zapewnienie spójności środowisk pomiędzy uczestnikami zespołu. Wszelkie
+	nawet najmniejsze odchylenia mogą prowadzić do błędów, co gorsza większość problemów może być nie możliwa
+	do odtworzenia na innych maszynach. Ponieważ wybraliśmy javę 8 jako język programowania niezbędna jest
+	automatyzacja budowania oraz zarządzania zależnościami itp. Postanowiliśmy użyć programu gradle Gradle,
+	posiada on prostą i przejrzystą składnie ułatwiającą pracę. Mimo ułatwienia jakim jest Gradle, nie jest
+	wystarczającym środkiem zapewnienia spójności. W celu osiągnięcia jej postanowiliśmy skorzystać z
+	kontenerów Dockerowych. Ze względu na rozmiar kontenerów Windowsowych, jedyną możliwą opcją są kontenery
+	Linuxowe. Oznacza to iż platformą docelową dla każdego fragmentu aplikacji jest Alpine Linux. Konteneryzacja aplikacji ułatwia również późniejsze uruchomienie jej w środowisku chmurowym. Każdy z 3 najpopularniejszych
+	dostawców oferuje hosting dla kontenerów.
   
 	\subsection{Zastosowane technologie}
 
