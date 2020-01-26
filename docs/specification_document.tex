@@ -10,6 +10,8 @@
 \usepackage[utf8]{inputenc}
 \usepackage{polski}
 
+\usepackage{textcomp}
+
 \graphicspath{ {./images/} }
 \urlstyle{same}
 
@@ -239,13 +241,13 @@ K. Malinowski, P. Piętka, B.Zdrojewski}
 	Ponieważ w projekcie ma być używana metodyka SCRUM, korzystanie z techniki TDD nie jest obowiązkowe. Mimo to 
 	testy jednostkowe nadal okazują się przydatne. Pozwalają na pewnego rodzaju dokumentowanie kodu za pomocą testów,
 	pozwalają zrozumieć celowość przykładowej metody, sposób wywoływania i jak działa bez wnikania w szczegóły kodu.
-	Moze to się okazać przydatne/kluczowe, gdy piszemy kod do jeszcze nieistniejącej klasy/metody/funkcjonalności,
+	Może to się okazać przydatne/kluczowe, gdy piszemy kod do jeszcze nieistniejącej klasy/metody/funkcjonalności,
 	a więc ułatwia w znaczący sposób zrównoleglenie pracy nad problemem.
 	Testy jednostkowe zazwyczaj odnoszą się do klasy, lub metody, pokrywają możliwe scenariusze i sprawdzają czy metoda/klasa
 	dobrze je obsłużyła. W razie gdy metoda polega na innej klasie, niż do tej, do której należy, stosuje się atrapę obiektu/ów (mock),
 	która symuluje przy wywołaniu metody zwrócenie wartości, jaką mogłaby zwrócić prawdziwa funkcja. Testy jednostkowe narzucają
 	w sposób niebezpośredni takiego pisania kodu, by ograniczyć te zależności, co jest zresztą dobrą praktyką.
-	Testy integracyjne pozwalają już sprawdzić z zależnościami czy wszystko wypada dobrze. Moze mieć wiele potencjalnych
+	Testy integracyjne pozwalają już sprawdzić z zależnościami czy wszystko wypada dobrze. Może mieć wiele potencjalnych
 	punktów awarii, a nawet być zależny od konfiguracji. Dlatego są równie ważne. Dobre pokrycie kodu testami jednostkowymi
 	jest w stanie przyspieszyć znalezienie błędu w testach integracyjnych. Jak widać, pisanie testów jest opłacalne, mimo tego, że
 	nakłada pisania więcej kodu.
@@ -254,16 +256,46 @@ K. Malinowski, P. Piętka, B.Zdrojewski}
 	\section{Szczegóły organizacji pracy}  
  
 	\subsection{Harmonogram prac}
-	todo bz
+	\begin{center}
+  \begin{tabular}{ | m{3cm} | m{7cm} | } 
+  \hline
+  Ostateczny termin & Etap projektu \\
+  \hline
+  20.09.2019 & Utworzenie zespołu \\
+	\hline
+  30.09.2019 & Przeprowadzenie spotkania organizacyjnego \\  
+  \hline
+  31.10.2019 & Zaprojektowanie podstawowej wersji projektu \\
+  \hline
+  17.12.2019 & Zapoznanie się z technologiami wymaganymi do realizacji projektu \\
+  \hline
+  12.01.2020 & Utworzenie jednolitego środowiska deweloperskiego u wszystkich członków zespołu \\
+  \hline
+  26.01.2020 & Utworzenie specyfikacji projektu \\
+  \hline
+  8.03.2020 & Zaimplementowanie podstawowej wersji projektu \\
+  \hline
+  22.03.2020 & Przeprowadzenie spotkania organizacyjnego \\
+  \hline
+  12.04.2020 & Zaprojektowanie rozszerzonej wersji projektu \\
+  \hline
+  31.05.2020 & Zaimplementowanie rozszerzonej wersji projektu \\
+  \hline
+  14.06.2020 & Uzupełnienie specyfikacji projektu \\
+  \hline
+  \end{tabular}
+  \captionof{table}{Harmonogram prac}
+  \label{sophisticatedtable}
+  \end{center}
  
 	\subsection{Metodyka wytwarzania oprogramowania}
-Dzięki użyciu Azure DevOps mamy dostęp do narzędzi scrumowych oraz tablicy kanban. Wszystko mieści się w ramach tzw. "Boards". Wymagana funkcjonalność jest zawarta jako "user stories", które to dzielają się na konkretne zadania ("tasks").
+	Dzięki użyciu Azure DevOps mamy dostęp do narzędzi scrumowych oraz tablicy kanban. Wszystko mieści się w ramach tzw. ,,Boards''. Wymagana funkcjonalność jest zawarta jako ,,user stories'', które to dzielają się na konkretne zadania (,,tasks'').
  
-Tablica kanban przechowuje User Stories z następującym przepływem: TODO (funkcjonalność, która jest dopiero planowana) $\rightarrow$ In progress (w trakcie wykonywania) $\rightarrow$ Resolved (problem rozwiązany) $\rightarrow$ Closed (rozwiązanie potwierdzone i zamknięte)
+Tablica kanban przechowuje User Stories z następującym przepływem: TODO (funkcjonalność, która jest dopiero planowana)\textrightarrow In progress (w trakcie wykonywania)\textrightarrow Resolved (problem rozwiązany)\textrightarrow Closed (rozwiązanie potwierdzone i zamknięte).
  
 Pełna lista User Stories znajduje się w backlogu.
 
-Zadania (Tasks) są wykonywane w ramach sprintów. Są one podzielone na User Stories, które z kolei są rozdzielone na konkretne zadania. Te z kolei mają następujący przepływ: Open $\rightarrow$ In Progress $\rightarrow$ Code Review $\rightarrow$ Merge (testy całości po merge'u) $\rightarrow$ Closed.
+Zadania (Tasks) są wykonywane w ramach sprintów. Są one podzielone na User Stories, które z kolei są rozdzielone na konkretne zadania. Te z kolei mają następujący przepływ: Open\textrightarrow In Progress \textrightarrow Code Review\textrightarrow Merge (testy całości po merge'u)\textrightarrow Closed.
 	
 	\subsection{Zastosowane narzędzia}
 	todo kd azure devops, slack
