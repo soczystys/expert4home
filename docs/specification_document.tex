@@ -202,8 +202,20 @@ K. Malinowski, P. Piętka, B.Zdrojewski}
 	tej funkcjonalności w celu usprawnienia całego procesu wytwarzania oprogramowania.
 
 	  
-	\subsection{Plan testów}
-	todo km jednostkowe, integracyjne, sam wiesz lepiej
+	\subsection{Plan testów}	
+	Ponieważ w projekcie ma być używana metodyka SCRUM, korzystanie z techniki TDD nie jest obowiązkowe. Mimo to 
+	testy jednostkowe nadal okazują się przydatne. Pozwalają na pewnego rodzaju dokumentowanie kodu za pomocą testów,
+	pozwalają zrozumieć celowość przykładowej metody, sposób wywoływania i jak działa bez wnikania w szczegóły kodu.
+	Moze to się okazać przydatne/kluczowe, gdy piszemy kod do jeszcze nieistniejącej klasy/metody/funkcjonalności,
+	a więc ułatwia w znaczący sposób zrównoleglenie pracy nad problemem.
+	Testy jednostkowe zazwyczaj odnoszą się do klasy, lub metody, pokrywają możliwe scenariusze i sprawdzają czy metoda/klasa
+	dobrze je obsłużyła. W razie gdy metoda polega na innej klasie, niż do tej, do której należy, stosuje się atrapę obiektu/ów (mock),
+	która symuluje przy wywołaniu metody zwrócenie wartości, jaką mogłaby zwrócić prawdziwa funkcja. Testy jednostkowe narzucają
+	w sposób niebezpośredni takiego pisania kodu, by ograniczyć te zależności, co jest zresztą dobrą praktyką.
+	Testy integracyjne pozwalają już sprawdzić z zależnościami czy wszystko wypada dobrze. Moze mieć wiele potencjalnych
+	punktów awarii, a nawet być zależny od konfiguracji. Dlatego są równie ważne. Dobre pokrycie kodu testami jednostkowymi
+	jest w stanie przyspieszyć znalezienie błędu w testach integracyjnych. Jak widać, pisanie testów jest opłacalne, mimo tego, że
+	nakłada pisania więcej kodu.
 	\newpage 
  
 	\section{Szczegóły organizacji pracy}  
