@@ -4,6 +4,7 @@
 \usepackage{fancyhdr}
 \usepackage{graphicx}
 \usepackage{hyperref}
+\usepackage{indentfirst}
 \usepackage{lastpage}
 \usepackage{lmodern}
 \usepackage[utf8]{inputenc}
@@ -32,7 +33,7 @@ K. Malinowski, P. Piętka, B.Zdrojewski}
 	\section{Wstęp} 
   
 	\subsection{Cel dokumentu}
-	todo bz
+	Celem dokumentu jest klarowne przekazanie propozycji realizacji celu projektu. W dokumencie zaprezentowano podstawy \texttt{architektury systemu}, które będą rozwijane i uszczegóławiane wraz z postępem projektu, schematy elementów \texttt{interfejsu użytkownika}, niezbędnych do realizacji kluczowych funkcji systemu, sugerowane \texttt{technologie}, które, na stan wiedzy autorów, wydają się być najlepiej dopasowane do skali i celów projektu, oraz \texttt{metody organizacji pracy}, wraz z \texttt{harmonogramem prac}, które mają zapewnić, że projekt zostanie ukończony w wyznaczonych ramach czasowych.
   
 	\subsection{Cel projektu}
 	todo bz
@@ -104,31 +105,30 @@ K. Malinowski, P. Piętka, B.Zdrojewski}
   
 	\subsection{Zastosowane technologie}
 
-	\subsubsection{Front-end}	
+	\subsubsection{Front-end}
 	todo jg+sk react
 	
 	\subsubsection{Back-end}	
-	% todo kd+km+pp springboot, mysql, nginx	
 	Do serwerowej części projektu postanowiliśmy wykorzystać kilka technologii. Zostaną one opisane poniżej.
-	  
-	\paragraph{SpringBoot} \mbox{} \\
+	
+	\paragraph{SpringBoot} \mbox{} \par
 	Do napisania kodu części serwerowej aplikacji wybraliśmy framework \texttt{SpringBoot} języka \texttt{Java}.
 	Jest to rozwiązanie sprawdzone przez wiele firm i rozwijane oraz wspierane już przez wiele lat. Dzięki temu możemy korzystać z dopracowanych bibliotek oraz zdobyć cenne doświadczenie.
 
 	\texttt{SpringBoot} jest bazowany na frameworku \texttt{Spring} jednak w przeciwieństwie do niego znacznie ogranicza niepotrzebną konfigurację na rzecz konwencji.
 	Dzięki takiemu podejściu programista może skupić się na realizowaniu funkcjonalności zamiast na przygotowywaniu środowiska.
 
-	\paragraph{Tomcat} \mbox{} \\
+	\paragraph{Tomcat} \mbox{} \par
 	Do uruchomienia aplikacji oraz obsługi połączeń sieciowych zastosowany został serwer \texttt{Tomcat}.
 	Jest to rozwiązanie o otwartym kodzie źródłowym wspierane przez organizację Apache.
 	Stanowi domyślne rozwiązanie dla aplikacji sieciowych pisanych w języku Java.
 
-	\paragraph{MySQL} \mbox{} \\
+	\paragraph{MySQL} \mbox{} \par
 	Do przechowywania danych biznesowych aplikacji wybraliśmy bazę MySQL.
-	Ponieważ dane maja wyraźną strukturę uznaliśmy, że rozwiązanie oparte na SQL będzie dobrze rozwiązywało problemy związane ze składowaniem danych.
+	Ponieważ dane maja wyraźną strukturę uznaliśmy, że rozwiązanie oparte na SQL będzie dobrze rozwiązywało problemy związane ze składowaniem danych.
 	Baza \texttt{MySQL} posiada otwarty kod źródłowy, ma zaimplementowane wszystkie najważniejsze funkcjonalności silników bazodanowych takie jak transakcje, widoki czy wyzwalacze i jest to szeroko używane i sprawdzone rozwiązanie.
 
-	\paragraph{Nginx} \mbox{} \\
+	\paragraph{Nginx} \mbox{} \par
 	Przez wiele lat dominującym serwerem http na rynku był Apache. W 2019 został on zdetronizowany przez Nginxa. 
 	Zdecydowaliśmy się użyć nowego króla. Głównych jego cechą jest możliwość obsługiwania bardzo dużej liczby
 	połączeń jednocześnie, dzięki asynchronicznemu podejściu do obsługi zapytań. Apache obsługuje połączenia
@@ -157,7 +157,7 @@ K. Malinowski, P. Piętka, B.Zdrojewski}
 	\subsection{Plan testów}
 	todo km jednostkowe, integracyjne, sam wiesz lepiej
  
-	\section{Szczegóły organizacji prac}  
+	\section{Szczegóły organizacji pracy}  
  
 	\subsection{Harmonogram prac}
 	todo bz
