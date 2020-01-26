@@ -36,8 +36,6 @@ K. Malinowski, P. Piętka, B.Zdrojewski}
 	Celem dokumentu jest klarowne przekazanie propozycji realizacji celu projektu. W dokumencie zaprezentowano podstawy \textbf{architektury systemu}, które będą rozwijane i uszczegóławiane wraz z postępem projektu, schematy elementów \textbf{interfejsu użytkownika}, niezbędnych do realizacji kluczowych funkcji systemu, sugerowane \textbf{technologie}, które, na stan wiedzy autorów, wydają się być najlepiej dopasowane do skali i celów projektu, oraz \textbf{metody organizacji pracy}, wraz z \textbf{harmonogramem prac}, które mają zapewnić, że projekt zostanie ukończony w wyznaczonych ramach czasowych.
   
 	\subsection{Cel projektu}
-	%Aplikacja webowa której obiektem uwagi byli by specjaliści różnych branż, którzy wykonują usługi na zlecenie%	
-	
 	Celem projektu jest zaprojektowanie i zaimplementowanie aplikacji webowej, której przeznaczeniem będzie łączenie specjalistów z danej branży z potencjalnymi klientami. 
 	
 	Z punktu widzenia specjalisty, aplikacja będzie pozwalać na publikację profilu dowolnej działalności, opartej o realizację usług lub zleceń, oraz zapewniać platformę do kontaktu z klientami.
@@ -51,7 +49,6 @@ K. Malinowski, P. Piętka, B.Zdrojewski}
 	\section{Architektura systemu}
   
   \subsection{Aktorzy}
-	% todo kd definicja użytkownika, klienta, specjalisty
 	Osoby korzystające z aplikacji będą mogły grać rolę różnych aktorów podczas interakcji z systemem w zależności od celu, który chcą osiągnąć.
 	Oznacza to, że ta sama osoba może raz wystąpić w roli eksperta oferującego swoje usługi, a innym razem skorzystać z systemu jako klient szukający wykonawcy zlecenia.
 
@@ -184,7 +181,11 @@ K. Malinowski, P. Piętka, B.Zdrojewski}
 	to iż w sytuacji natrafienia na trudności istnieje duża szansa iż ktoś już kiedyś natrafił na podobny problem.
 	
 	\subsubsection{Kontrola wersji}
-	todo bz git
+	W celu zapewnienia możliwości monitorowania i wycofywania zmian w kodzie źródłowym aplikacji oraz równoległej, bezkonfliktowej pracy wszystkich członków zespołu, postanowiono skorzystać z systemu kontroli wersji. Wybrano znany i szeroko stosowany system \textbf{git}. Dodatkowo, w celu zapewnienia łatwego dostępu do repozytorium aplikacji, postanowiono skorzystać z serwisu \textbf{Github}.
+	
+	Repozytorium składać się będzie z co najmniej dwóch gałęzi: \textit{master} i \textit{development}. Na gałęzi \textit{development} będą prowadzone prace deweloperskie. Wszelkie dodatkowe gałęzie, które zostaną stworzone na potrzeby konkretnych funkcjonalności, będą łączone właśnie z tą gałęzią.
+	
+	Gdy wszystkie zmiany na gałęzi \textit{development} zostaną przetestowane i stabilność danej wersji aplikacji zostanie potwierdzona, zostaną one połączone z gałęzią \textit{master}.
 	  
 	\subsubsection{Wdrożenie oprogramowania}
 	Istnienie kontenerów Dockerowy otwiera przed naszym zespołem wiele nowych możliwości. Dzięki sposobowi dystrybucji
