@@ -122,16 +122,49 @@ K. Malinowski, P. Piętka, B.Zdrojewski}
 	\newpage
 	
 	\subsection{Dialog zgłoszenia}	
-	todo sk przerysować w \url{https://draw.io} ze slackowego hash tag frontend, zapisać projekt do schemes, wyeksportować obraz do images, wstawić obraz tutaj z podpisem	
-	\newpage	
+	\begin{figure}[!htbp]
+  \begin{center}
+  {%
+		\setlength{\fboxsep}{0.5pt}%
+		\setlength{\fboxrule}{0.5pt}%
+		\fbox{
+			\includegraphics[width=\textwidth]{client_report.png}
+		}%
+	}%
+  \captionof{figure}{Schemat dialogu zgłoszenia}
+  \end{center}
+  \end{figure}
+	\newpage
 	
 	\subsection{Ekran zgłoszeń klienta}
-	todo sk przerysować w \url{https://draw.io} ze slackowego hash tag frontend, zapisać projekt do schemes, wyeksportować obraz do images, wstawić obraz tutaj z podpisem
-	\newpage	
+	\begin{figure}[!htbp]
+  \begin{center}
+  {%
+		\setlength{\fboxsep}{0.5pt}%
+		\setlength{\fboxrule}{0.5pt}%
+		\fbox{
+			\includegraphics[width=\textwidth]{client_myReports.png}
+		}%
+	}%
+  \captionof{figure}{Schemat ekranu zgłoszenia klienta}
+  \end{center}
+  \end{figure}
+	\newpage
 	
 	\subsection{Ekran zgłoszeń specjalisty}
-	todo sk przerysować w \url{https://draw.io} ze slackowego hash tag frontend, zapisać projekt do schemes, wyeksportować obraz do images, wstawić obraz tutaj z podpisem  
-	\newpage  
+	\begin{figure}[!htbp]
+  \begin{center}
+  {%
+		\setlength{\fboxsep}{0.5pt}%
+		\setlength{\fboxrule}{0.5pt}%
+		\fbox{
+			\includegraphics[width=\textwidth]{expert_myReports.png}
+		}%
+	}%
+  \captionof{figure}{Schemat ekranu zgłoszenia specjalisty}
+  \end{center}
+  \end{figure}
+	\newpage 
   
 	\section{Szczegóły implementacji}  
   
@@ -150,7 +183,7 @@ K. Malinowski, P. Piętka, B.Zdrojewski}
 	\subsection{Zastosowane technologie}
 
 	\subsubsection{Front-end}
-	todo jg+sk react
+	todo jg react
 	
 	\subsubsection{Back-end}	
 	Do serwerowej części projektu postanowiliśmy wykorzystać kilka technologii. Zostaną one opisane poniżej.
@@ -224,7 +257,13 @@ K. Malinowski, P. Piętka, B.Zdrojewski}
 	todo bz
  
 	\subsection{Metodyka wytwarzania oprogramowania}
-	todo sk scrum, kanban
+Dzięki użyciu Azure DevOps mamy dostęp do narzędzi scrumowych oraz tablicy kanban. Wszystko mieści się w ramach tzw. "Boards". Wymagana funkcjonalność jest zawarta jako "user stories", które to dzielają się na konkretne zadania ("tasks").
+ 
+Tablica kanban przechowuje User Stories z następującym przepływem: TODO (funkcjonalność, która jest dopiero planowana) $\rightarrow$ In progress (w trakcie wykonywania) $\rightarrow$ Resolved (problem rozwiązany) $\rightarrow$ Closed (rozwiązanie potwierdzone i zamknięte)
+ 
+Pełna lista User Stories znajduje się w backlogu.
+
+Zadania (Tasks) są wykonywane w ramach sprintów. Są one podzielone na User Stories, które z kolei są rozdzielone na konkretne zadania. Te z kolei mają następujący przepływ: Open $\rightarrow$ In Progress $\rightarrow$ Code Review $\rightarrow$ Merge (testy całości po merge'u) $\rightarrow$ Closed.
 	
 	\subsection{Zastosowane narzędzia}
 	todo kd azure devops, slack
