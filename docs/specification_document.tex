@@ -58,7 +58,7 @@ K. Malinowski, P. Piętka, B.Zdrojewski}
 	\begin{itemize}
 		\item Ekspert -- Osoba posiadająca wiedzę i umiejętności w danej dziedzinie pozwalające na świadczenie usług innym,
 		\item Klient -- Osoba szukająca wykonawcy usług
-		\item Stały klient -- Klient, który nawiązał wielokrotną w spółpracę z \textbf{konkretnym ekspertem}. Ma on dostęp do dodatkowych benefitów udzielonych przez eksperta
+		\item Stały klient -- Klient, który nawiązał wielokrotną współpracę z \textbf{konkretnym ekspertem}. Ma on dostęp do dodatkowych benefitów udzielonych przez eksperta
 		\item Administrator -- Osoba mająca dodatkowe uprawnienia dzięki którym może wypływać na działanie systemu dla zwykłych użytkowników
 	\end{itemize}
 	
@@ -145,7 +145,7 @@ K. Malinowski, P. Piętka, B.Zdrojewski}
 		\setlength{\fboxsep}{0.5pt}%
 		\setlength{\fboxrule}{0.5pt}%
 		\fbox{
-			\includegraphics[width=\textwidth]{client_myReports.png}
+			\includegraphics[width=\textwidth]{client_my_reports.png}
 		}%
 	}%
   \captionof{figure}{Schemat ekranu zgłoszenia klienta}
@@ -160,7 +160,7 @@ K. Malinowski, P. Piętka, B.Zdrojewski}
 		\setlength{\fboxsep}{0.5pt}%
 		\setlength{\fboxrule}{0.5pt}%
 		\fbox{
-			\includegraphics[width=\textwidth]{expert_myReports.png}
+			\includegraphics[width=\textwidth]{expert_my_reports.png}
 		}%
 	}%
   \captionof{figure}{Schemat ekranu zgłoszenia specjalisty}
@@ -171,16 +171,9 @@ K. Malinowski, P. Piętka, B.Zdrojewski}
 	\section{Szczegóły implementacji}  
   
 	\subsection{Środowisko deweloperskie}  
-	Jednym z ważniejszych wyzwań jest zapewnienie spójności środowisk pomiędzy uczestnikami zespołu. Wszelkie
-	nawet najmniejsze odchylenia mogą prowadzić do błędów, co gorsza większość problemów może być nie możliwa
-	do odtworzenia na innych maszynach. Ponieważ wybraliśmy javę 8 jako język programowania niezbędna jest
-	automatyzacja budowania oraz zarządzania zależnościami itp. Postanowiliśmy użyć programu gradle Gradle,
-	posiada on prostą i przejrzystą składnie ułatwiającą pracę. Mimo ułatwienia jakim jest Gradle, nie jest
-	wystarczającym środkiem zapewnienia spójności. W celu osiągnięcia jej postanowiliśmy skorzystać z
-	kontenerów Dockerowych. Ze względu na rozmiar kontenerów Windowsowych, jedyną możliwą opcją są kontenery
-	Linuxowe. Oznacza to iż platformą docelową dla każdego fragmentu aplikacji jest Alpine Linux. Konteneryzacja
-	aplikacji ułatwia również późniejsze uruchomienie jej w środowisku chmurowym. Każdy z 3 najpopularniejszych
-	dostawców oferuje hosting dla kontenerów.
+	Jednym z ważniejszych wyzwań jest zapewnienie spójności środowisk pomiędzy uczestnikami zespołu. Wszelkie nawet najmniejsze odchylenia mogą prowadzić do błędów, co gorsza większość problemów może być nie możliwa do odtworzenia na innych maszynach. Ponieważ wybraliśmy Javę 8 jako język programowania niezbędna jest automatyzacja budowania oraz zarządzania zależnościami itp.
+	
+	Postanowiliśmy użyć programu Gradle, posiada on prostą i przejrzystą składnie ułatwiającą pracę. Mimo ułatwienia jakim jest Gradle, nie jest wystarczającym środkiem zapewnienia spójności. W celu osiągnięcia jej postanowiliśmy skorzystać z kontenerów Dockerowych. Ze względu na rozmiar kontenerów Windowsowych, jedyną możliwą opcją są kontenery Linuxowe. Oznacza to iż platformą docelową dla każdego fragmentu aplikacji jest Alpine Linux. Konteneryzacja aplikacji ułatwia również późniejsze uruchomienie jej w środowisku chmurowym. Każdy z 3 najpopularniejszych dostawców oferuje hosting dla kontenerów.
   
 	\subsection{Zastosowane technologie}
 
@@ -191,21 +184,21 @@ K. Malinowski, P. Piętka, B.Zdrojewski}
 	Do serwerowej części projektu postanowiliśmy wykorzystać kilka technologii. Zostaną one opisane poniżej.
 	
 	\paragraph{SpringBoot} \mbox{} \par
-	Do napisania kodu części serwerowej aplikacji wybraliśmy framework \texttt{SpringBoot} języka \texttt{Java}.
+	Do napisania kodu części serwerowej aplikacji wybraliśmy framework SpringBoot języka Java.
 	Jest to rozwiązanie sprawdzone przez wiele firm i rozwijane oraz wspierane już przez wiele lat. Dzięki temu możemy korzystać z dopracowanych bibliotek oraz zdobyć cenne doświadczenie.
 
-	\texttt{SpringBoot} jest bazowany na frameworku \texttt{Spring} jednak w przeciwieństwie do niego znacznie ogranicza niepotrzebną konfigurację na rzecz konwencji.
+	SpringBoot jest bazowany na frameworku Spring jednak w przeciwieństwie do niego znacznie ogranicza niepotrzebną konfigurację na rzecz konwencji.
 	Dzięki takiemu podejściu programista może skupić się na realizowaniu funkcjonalności zamiast na przygotowywaniu środowiska.
 
 	\paragraph{Tomcat} \mbox{} \par
-	Do uruchomienia aplikacji oraz obsługi połączeń sieciowych zastosowany został serwer \texttt{Tomcat}.
+	Do uruchomienia aplikacji oraz obsługi połączeń sieciowych zastosowany został serwer Tomcat.
 	Jest to rozwiązanie o otwartym kodzie źródłowym wspierane przez organizację Apache.
 	Stanowi domyślne rozwiązanie dla aplikacji sieciowych pisanych w języku Java.
 
 	\paragraph{MySQL} \mbox{} \par
 	Do przechowywania danych biznesowych aplikacji wybraliśmy bazę MySQL.
 	Ponieważ dane maja wyraźną strukturę uznaliśmy, że rozwiązanie oparte na SQL będzie dobrze rozwiązywało problemy związane ze składowaniem danych.
-	Baza \texttt{MySQL} posiada otwarty kod źródłowy, ma zaimplementowane wszystkie najważniejsze funkcjonalności silników bazodanowych takie jak transakcje, widoki czy wyzwalacze i jest to szeroko używane i sprawdzone rozwiązanie.
+	Baza MySQL posiada otwarty kod źródłowy, ma zaimplementowane wszystkie najważniejsze funkcjonalności silników bazodanowych takie jak transakcje, widoki czy wyzwalacze i jest to szeroko używane i sprawdzone rozwiązanie.
 
 	\paragraph{Nginx} \mbox{} \par
 	Przez wiele lat dominującym serwerem http na rynku był Apache. W 2019 został on zdetronizowany przez Nginxa. 
@@ -223,34 +216,12 @@ K. Malinowski, P. Piętka, B.Zdrojewski}
 	Gdy wszystkie zmiany na gałęzi \textit{development} zostaną przetestowane i stabilność danej wersji aplikacji zostanie potwierdzona, zostaną one połączone z gałęzią \textit{master}.
 	  
 	\subsubsection{Wdrożenie oprogramowania}
-	Istnienie kontenerów Dockerowy otwiera przed naszym zespołem wiele nowych możliwości. Dzięki sposobowi dystrybucji
-	jakim jest Docker Hub w bardzo prosty sposób można uzyskać dostęp do wielu jż stworzonych obrazów dysków. Możliwym
-	jest również rozstawienie własnego rejestru obrazów. W efekcie pobieranie wszelkiego rodzaju zależności sprowadza
-	się do jednej komendy, gdzie każda zależności "myśli" że jest oddzielnym systemem operacyjnym. Przykładowo,
-	jeżeli potrzebujemy bazy postgreSQL wystarczy wywołać komendę \texttt{docker pull postgres}, odpowiedni obraz
-	zostanie pobrany.
+	Istnienie kontenerów Dockerowy otwiera przed naszym zespołem wiele nowych możliwości. Dzięki sposobowi dystrybucji jakim jest Docker Hub w bardzo prosty sposób można uzyskać dostęp do wielu już stworzonych obrazów dysków. Możliwym jest również rozstawienie własnego rejestru obrazów. W efekcie pobieranie wszelkiego rodzaju zależności sprowadza się do jednej komendy, gdzie każda zależności "myśli" że jest oddzielnym systemem operacyjnym. Przykładowo, jeżeli potrzebujemy bazy postgreSQL wystarczy wywołać komendę \texttt{docker pull postgres}, odpowiedni obraz zostanie pobrany.
 	
-	Docelowo środowiskiem produkcyjnym aplikacji będzie chmura Microsoft Azure. Dokładnie oferowany przez MSA hosting
-	kontenerów. Zdecydowaliśmy się na Azure ze względu na możliwość połączenia ponieważ korzystamy z pakietu Azure DevOps. 
-	Azure Devops pozwala na zarządzanie zadaniami, hostowanie prywatnych rejestrów Dockerowych oraz co najważniejsze,
-	pozwala na definiowanie procesów CI/CD. W odpowiednim etapie dojrzałości projektu planujemy skorzystać z właśnie
-	tej funkcjonalności w celu usprawnienia całego procesu wytwarzania oprogramowania.
-
+	Docelowo środowiskiem produkcyjnym aplikacji będzie chmura Microsoft Azure. Dokładnie oferowany przez MSA hosting kontenerów. Zdecydowaliśmy się na Azure ze względu na możliwość połączenia ponieważ korzystamy z pakietu Azure DevOps. Azure Devops pozwala na zarządzanie zadaniami, hostowanie prywatnych rejestrów Dockerowych oraz co najważniejsze, pozwala na definiowanie procesów CI/CD. W odpowiednim etapie dojrzałości projektu planujemy skorzystać z właśnie tej funkcjonalności w celu usprawnienia całego procesu wytwarzania oprogramowania.
 	  
 	\subsection{Plan testów}	
-	Ponieważ w projekcie ma być używana metodyka SCRUM, korzystanie z techniki TDD nie jest obowiązkowe. Mimo to 
-	testy jednostkowe nadal okazują się przydatne. Pozwalają na pewnego rodzaju dokumentowanie kodu za pomocą testów,
-	pozwalają zrozumieć celowość przykładowej metody, sposób wywoływania i jak działa bez wnikania w szczegóły kodu.
-	Może to się okazać przydatne/kluczowe, gdy piszemy kod do jeszcze nieistniejącej klasy/metody/funkcjonalności,
-	a więc ułatwia w znaczący sposób zrównoleglenie pracy nad problemem.
-	Testy jednostkowe zazwyczaj odnoszą się do klasy, lub metody, pokrywają możliwe scenariusze i sprawdzają czy metoda/klasa
-	dobrze je obsłużyła. W razie gdy metoda polega na innej klasie, niż do tej, do której należy, stosuje się atrapę obiektu/ów (mock),
-	która symuluje przy wywołaniu metody zwrócenie wartości, jaką mogłaby zwrócić prawdziwa funkcja. Testy jednostkowe narzucają
-	w sposób niebezpośredni takiego pisania kodu, by ograniczyć te zależności, co jest zresztą dobrą praktyką.
-	Testy integracyjne pozwalają już sprawdzić z zależnościami czy wszystko wypada dobrze. Może mieć wiele potencjalnych
-	punktów awarii, a nawet być zależny od konfiguracji. Dlatego są równie ważne. Dobre pokrycie kodu testami jednostkowymi
-	jest w stanie przyspieszyć znalezienie błędu w testach integracyjnych. Jak widać, pisanie testów jest opłacalne, mimo tego, że
-	nakłada pisania więcej kodu.
+	Ponieważ w projekcie ma być używana metodyka SCRUM, korzystanie z techniki TDD nie jest obowiązkowe. Mimo to  testy jednostkowe nadal okazują się przydatne. Pozwalają na pewnego rodzaju dokumentowanie kodu za pomocą testów, pozwalają zrozumieć celowość przykładowej metody, sposób wywoływania i jak działa bez wnikania w szczegóły kodu. Może to się okazać przydatne/kluczowe, gdy piszemy kod do jeszcze nieistniejącej klasy, metody lub funkcjonalności, a więc ułatwia w znaczący sposób zrównoleglenie pracy nad problemem. Testy jednostkowe zazwyczaj odnoszą się do klasy, lub metody, pokrywają możliwe scenariusze i sprawdzają czy metoda/klasa dobrze je obsłużyła. W razie gdy metoda polega na innej klasie, niż do tej, do której należy, stosuje się atrapę obiektu/ów (mock), która symuluje przy wywołaniu metody zwrócenie wartości, jaką mogłaby zwrócić prawdziwa funkcja. Testy jednostkowe narzucają w sposób niebezpośredni takiego pisania kodu, by ograniczyć te zależności, co jest zresztą dobrą praktyką. Testy integracyjne pozwalają już sprawdzić z zależnościami czy wszystko wypada dobrze. Może mieć wiele potencjalnych punktów awarii, a nawet być zależny od konfiguracji. Dlatego są równie ważne. Dobre pokrycie kodu testami jednostkowymi jest w stanie przyspieszyć znalezienie błędu w testach integracyjnych. Jak widać, pisanie testów jest opłacalne, mimo tego, że nakłada pisania więcej kodu.
 	\newpage 
  
 	\section{Szczegóły organizacji pracy}  
@@ -289,13 +260,13 @@ K. Malinowski, P. Piętka, B.Zdrojewski}
   \end{center}
  
 	\subsection{Metodyka wytwarzania oprogramowania}
-	Dzięki użyciu Azure DevOps mamy dostęp do narzędzi scrumowych oraz tablicy kanban. Wszystko mieści się w ramach tzw. ,,Boards''. Wymagana funkcjonalność jest zawarta jako ,,user stories'', które to dzielają się na konkretne zadania (,,tasks'').
+	Dzięki użyciu Azure DevOps mamy dostęp do narzędzi scrumowych oraz tablicy kanban. Wszystko mieści się w ramach tzw. \textit{Boards}. Wymagana funkcjonalność jest zawarta jako \textit{User Stories}, które to oddzielają się na konkretne zadania (\textit{Tasks}).
  
-Tablica kanban przechowuje User Stories z następującym przepływem: TODO (funkcjonalność, która jest dopiero planowana)\textrightarrow In progress (w trakcie wykonywania)\textrightarrow Resolved (problem rozwiązany)\textrightarrow Closed (rozwiązanie potwierdzone i zamknięte).
+	Tablica kanban przechowuje \textit{User Stories} z następującym przepływem: \textit{TODO} (funkcjonalność, która jest dopiero planowana)\textrightarrow \textit{In progress} (w trakcie wykonywania)\textrightarrow \textit{Resolved} (problem rozwiązany)\textrightarrow \textit{Closed} (rozwiązanie potwierdzone i zamknięte).
  
-Pełna lista User Stories znajduje się w backlogu.
+	Pełna lista \textit{User Stories} znajduje się w \textit{backlogu}.
 
-Zadania (Tasks) są wykonywane w ramach sprintów. Są one podzielone na User Stories, które z kolei są rozdzielone na konkretne zadania. Te z kolei mają następujący przepływ: Open\textrightarrow In Progress \textrightarrow Code Review\textrightarrow Merge (testy całości po merge'u)\textrightarrow Closed.
+	Zadania (\textit{Tasks}) są wykonywane w ramach sprintów. Są one podzielone na \textit{User Stories}, które z kolei są rozdzielone na konkretne zadania. Te z kolei mają następujący przepływ: Open\textrightarrow \textit{In Progress} \textrightarrow \textit{Code Review}\textrightarrow \textit{Merge} (testy całości po \textit{merge'u})\textrightarrow \textit{Closed}.
 	
 	\subsection{Zastosowane narzędzia}
 	todo kd azure devops, slack
