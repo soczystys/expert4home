@@ -73,10 +73,38 @@ K. Malinowski, P. Piętka, B.Zdrojewski}
   \end{figure}
   
   \subsection{Diagramy sekwencji}
-	todo kd tak jak na uml'u, na jednym diagramie (użyć \url{https://draw.io}, projekt zapisać w schemes, obraz wyeksportować do images, obraz wstawić z podpisem) przedstawić proces wyszukania specjalisty, dodania zgłoszenia, zaakceptowania zgłoszenia przez specjalistę i wystawienia komentarza, na podstawie zdjęć ze slackowego hash tag frontend (zdaję sobię sprawę, że wyciągnięcie procesu ze zdjęć widoków może być nieoczywiste, więc w razie czego pisz do bz/jg/sk)
-	\newpage
+	Dynamikę działania poszczególnych przypadków użycia przedstawiają poniższe diagramy sekwencji.
+
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\textwidth{}]{Wyszukanie_specjalisty.png}
+		\caption{Wyszukanie specjalisty}
+		\label{fig:sequenceDiagramSearchForExpert}
+	\end{figure}
+
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\textwidth{}]{Dodanie_zgloszenia.png}
+		\caption{Dodanie zgłoszenia}
+		\label{fig:sequenceDiagramAddRequest}
+	\end{figure}
+
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\textwidth{}]{Zaakceptowanie_zgloszenia.png}
+		\caption{Zaakceptowanie zgłoszenia}
+		\label{fig:sequenceDiagramAcceptRequest}
+	\end{figure}
+
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\textwidth{}]{Dodanie_komentarza.png}
+		\caption{Dodanie komentarza}
+		\label{fig:sequenceDiagramAddComment}
+	\end{figure}
+
   
-	\section{Interfejs użytkownika}
+\section{Interfejs użytkownika}
   
 	\subsection{Ekran główny}
 	\begin{figure}[!htbp]
