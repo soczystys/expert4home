@@ -33,13 +33,14 @@ K. Malinowski, P. Piętka, B.Zdrojewski}
 	\section{Wstęp} 
   
 	\subsection{Cel dokumentu}
-	Celem dokumentu jest klarowne przekazanie propozycji realizacji celu projektu. W dokumencie zaprezentowano podstawy \texttt{architektury systemu}, które będą rozwijane i uszczegóławiane wraz z postępem projektu, schematy elementów \texttt{interfejsu użytkownika}, niezbędnych do realizacji kluczowych funkcji systemu, sugerowane \texttt{technologie}, które, na stan wiedzy autorów, wydają się być najlepiej dopasowane do skali i celów projektu, oraz \texttt{metody organizacji pracy}, wraz z \texttt{harmonogramem prac}, które mają zapewnić, że projekt zostanie ukończony w wyznaczonych ramach czasowych.
+	Celem dokumentu jest klarowne przekazanie propozycji realizacji celu projektu. W dokumencie zaprezentowano podstawy \textbf{architektury systemu}, które będą rozwijane i uszczegóławiane wraz z postępem projektu, schematy elementów \textbf{interfejsu użytkownika}, niezbędnych do realizacji kluczowych funkcji systemu, sugerowane \textbf{technologie}, które, na stan wiedzy autorów, wydają się być najlepiej dopasowane do skali i celów projektu, oraz \textbf{metody organizacji pracy}, wraz z \textbf{harmonogramem prac}, które mają zapewnić, że projekt zostanie ukończony w wyznaczonych ramach czasowych.
   
 	\subsection{Cel projektu}
 	todo bz
   
 	\subsection{Użytkownicy końcowi}
 	todo bz
+	\newpage  
   
 	\section{Architektura systemu}
   
@@ -68,29 +69,66 @@ K. Malinowski, P. Piętka, B.Zdrojewski}
   
   \subsection{Diagramy sekwencji}
 	todo kd tak jak na uml'u, na jednym diagramie (użyć \url{https://draw.io}, projekt zapisać w schemes, obraz wyeksportować do images, obraz wstawić z podpisem) przedstawić proces wyszukania specjalisty, dodania zgłoszenia, zaakceptowania zgłoszenia przez specjalistę i wystawienia komentarza, na podstawie zdjęć ze slackowego hash tag frontend (zdaję sobię sprawę, że wyciągnięcie procesu ze zdjęć widoków może być nieoczywiste, więc w razie czego pisz do bz/jg/sk)
+	\newpage
   
 	\section{Interfejs użytkownika}
   
 	\subsection{Ekran główny}
-
-		\includegraphics{Home view.png}
+	\begin{figure}[!htbp]
+  \begin{center}
+  {%
+		\setlength{\fboxsep}{0.5pt}%
+		\setlength{\fboxrule}{0.5pt}%
+		\fbox{
+			\includegraphics[width=\textwidth]{home_view.png}
+		}%
+	}%
+  \captionof{figure}{Schemat ekranu głównego}
+  \end{center}
+  \end{figure}
+	\newpage
 
 	\subsection{Ekran wyszukiwania specjalisty}
-
-		\includegraphics{Search expert view.png}
+	\begin{figure}[!htbp]
+  \begin{center}
+  {%
+		\setlength{\fboxsep}{0.5pt}%
+		\setlength{\fboxrule}{0.5pt}%
+		\fbox{
+			\includegraphics[width=\textwidth]{search_expert_view.png}
+		}%
+	}%
+  \captionof{figure}{Schemat ekranu wyszukiwania specjalisty}
+  \end{center}
+  \end{figure}
+	\newpage
 
 	\subsection{Ekran profilu specjalisty}	
-
-		\includegraphics{Expert profile view.png}	
+	\begin{figure}[!htbp]
+  \begin{center}
+  {%
+		\setlength{\fboxsep}{0.5pt}%
+		\setlength{\fboxrule}{0.5pt}%
+		\fbox{
+			\includegraphics[width=\textwidth]{expert_profile_view.png}
+		}%
+	}%
+  \captionof{figure}{Schemat ekranu profilu specjalisty}
+  \end{center}
+  \end{figure}
+	\newpage
 	
 	\subsection{Dialog zgłoszenia}	
 	todo sk przerysować w \url{https://draw.io} ze slackowego hash tag frontend, zapisać projekt do schemes, wyeksportować obraz do images, wstawić obraz tutaj z podpisem	
+	\newpage	
 	
 	\subsection{Ekran zgłoszeń klienta}
 	todo sk przerysować w \url{https://draw.io} ze slackowego hash tag frontend, zapisać projekt do schemes, wyeksportować obraz do images, wstawić obraz tutaj z podpisem
+	\newpage	
 	
 	\subsection{Ekran zgłoszeń specjalisty}
 	todo sk przerysować w \url{https://draw.io} ze slackowego hash tag frontend, zapisać projekt do schemes, wyeksportować obraz do images, wstawić obraz tutaj z podpisem  
+	\newpage  
   
 	\section{Szczegóły implementacji}  
   
@@ -159,6 +197,7 @@ K. Malinowski, P. Piętka, B.Zdrojewski}
 	  
 	\subsection{Plan testów}
 	todo km jednostkowe, integracyjne, sam wiesz lepiej
+	\newpage 
  
 	\section{Szczegóły organizacji pracy}  
  
