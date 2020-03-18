@@ -1,7 +1,14 @@
+import org.apache.tools.ant.taskdefs.condition.Os
+
 plugins {
 	id 'org.springframework.boot' version '2.2.0.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
 	id 'java'
+	id "com.moowork.node" version "1.3.1"
+}
+
+node {
+	nodeModulesDir = file("./src/react-app")
 }
 
 group = 'com.redteam'
@@ -26,4 +33,38 @@ dependencies {
 
 test {
 	useJUnitPlatform()
+}
+
+task cleanReactApp(type: Delete) {
+	delete './src/main/resources/public'
+}
+
+task buildReactApp(type: NpmTask, dependsOn: npmInstall) {
+	args = ['run-script', 'build']
+}
+
+task deployReactApp(type: Copy) {
+	dependsOn 'cleanReactApp'
+	dependsOn 'buildReactApp'
+	from './src/react-app/build'
+	into './src/main/resources/public'
+	tasks.findByName('buildReactApp').mustRunAfter 'cleanReactApp'
+}
+
+task bootFrontEnd(type: NpmTask) {
+	args = ['run-script', 'start']
+}
+
+task bootFullStack {
+	dependsOn 'deployReactApp'
+	dependsOn 'bootRun'
+	tasks.findByName('bootRun').mustRunAfter 'deployReactApp'
+}
+
+task killNodeProcess(type:Exec) {
+	if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+		commandLine 'taskkill', '-F', '-IM', 'node.exe'
+	} else {
+		commandLine 'pkill', '-f', 'node'
+	}
 }
