@@ -51,14 +51,21 @@ task deployReactApp(type: Copy) {
 	tasks.findByName('buildReactApp').mustRunAfter 'cleanReactApp'
 }
 
+task cloneIndexAsTemplate(type: Copy) {
+	from './src/main/resources/public/index.html'
+	into './src/main/resources/templates/'
+}
+
 task bootFrontEnd(type: NpmTask) {
 	args = ['run-script', 'start']
 }
 
 task bootFullStack {
 	dependsOn 'deployReactApp'
+	dependsOn 'cloneIndexAsTemplate'
 	dependsOn 'bootRun'
-	tasks.findByName('bootRun').mustRunAfter 'deployReactApp'
+	tasks.findByName('cloneIndexAsTemplate').mustRunAfter 'deployReactApp'
+	tasks.findByName('bootRun').mustRunAfter 'cloneIndexAsTemplate'
 }
 
 task killNodeProcess(type:Exec) {
