@@ -5,7 +5,7 @@ import {
     Route
 } from "react-router-dom";
 import HomeView from "./HomeView"
-import Navigation from "../components/Navigation/Navigation";
+import Navigation from "../components/Navigation";
 import OrdersView from './OrdersView'
 import ProfileView from "./ProfileView";
 import SearchView from "./SearchView";

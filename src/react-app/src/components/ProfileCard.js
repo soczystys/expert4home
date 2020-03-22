@@ -6,22 +6,22 @@ import { makeStyles } from '@material-ui/core/styles';
 import Divider from "@material-ui/core/Divider";
 import Rating from '@material-ui/lab/Rating';
 import Button from '@material-ui/core/Button';
-import { shadows } from '@material-ui/system';
 
 
 
 
 const useStyles = makeStyles(()=>({
     root: {
-        maxWidth: 360,
-        width:"30%",
+        minWidth:250,
+        maxWidth:380,
         minHeight:400,
         borderRadius: 20,
         display:"flex",
         flexDirection: "column",
         padding:10,
         justifyContent:"space-around",
-        boxShadow: "0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)"
+        boxShadow: "0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)",
+        margin:20,
     },
     content:{
 
