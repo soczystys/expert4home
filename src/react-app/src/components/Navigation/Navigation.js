@@ -17,7 +17,7 @@ import ListAltIcon from '@material-ui/icons/ListAlt';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import SearchIcon from '@material-ui/icons/Search';
 import clsx from "clsx";
-import {UserType} from "./app";
+import {UserType} from "../../views/Root";
 
 const drawerWidth = 240;
 
