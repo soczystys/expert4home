@@ -32,9 +32,11 @@ export default function Root() {
                 <Route path="/app/search">
                     <Navigation title={"Expert4Home | Specjaliści"} content={<SearchView />} userType={userType} />
                 </Route>
-
-                {/*Added naviagtion for sample routing, but after making home screen remove it(in project home screen
-                 not contain nav)!*/}
+                {/*
+                TODO remove/modify navigation
+                Added navigation for sample routing, but after making home screen remove it(in project home screen
+                not contain nav)!
+                */}
                 <Route path="/">
                     <Navigation title={"Expert4Home | Specjaliści"} content={<HomeView />} userType={userType} />
                 </Route>

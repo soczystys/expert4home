@@ -19,7 +19,7 @@
 .sts4-cache
 
 ### IntelliJ IDEA ###
-/.idea
+/.idea/
 /out/
 *.iws
 *.iml
@@ -42,8 +42,9 @@
 /docs/*.out
 
 ### React ###
+/src/react-app/.idea/
 /src/react-app/build/
-/src/react-app/coverage
+/src/react-app/coverage/
 /src/react-app/node_modules/
 .pnp
 .pnp.js
