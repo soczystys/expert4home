@@ -1,9 +1,7 @@
-package com.redteam.expert4home.user;
+package com.redteam.expert4home.dao;
 
+import com.redteam.expert4home.dao.entity.User;
 import org.springframework.data.repository.CrudRepository;
 
-@org.springframework.stereotype.Repository
 public interface UserRepository extends CrudRepository<User, Long> {
-
 }
-
