@@ -49,7 +49,9 @@ const useStyles = makeStyles(theme => ({
             easing: theme.transitions.easing.easeOut,
             duration: theme.transitions.duration.enteringScreen,
         }),
-        marginLeft: 0,
+        [theme.breakpoints.up('sm')]: {
+            marginLeft: 0
+        }
     },
     toolbar: theme.mixins.toolbar,
 }));
@@ -100,6 +102,7 @@ function NavigationOptionList(props) {
     return <List></List>;
 }
 
+// TODO add elevation to Drawer
 export default function Navigation(props) {
     const classes = useStyles();
     const [isDrawerOpen, setIsDrawerOpen] = React.useState(true);
@@ -127,9 +130,10 @@ export default function Navigation(props) {
                 </Toolbar>
             </AppBar>
             <Drawer
-                className={classes.drawer}
                 variant="persistent"
                 open={isDrawerOpen}
+                className={classes.drawer}
+                display={{md: 'block', lg: 'none'}}
                 classes={{
                     paper: classes.drawerPaper,
                 }}

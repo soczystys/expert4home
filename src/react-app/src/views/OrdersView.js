@@ -1,49 +1,81 @@
 import React from "react";
 import {UserType} from "./Root";
-import {makeStyles} from '@material-ui/core/styles';
-import Card from "@material-ui/core/Card";
+
+// Components
 import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
+import Card from "@material-ui/core/Card";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import {red} from "@material-ui/core/colors";
-import clsx from "clsx";
-import Button from "@material-ui/core/Button";
-import blue from "@material-ui/core/colors/blue";
-import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
-import indigo from "@material-ui/core/colors/indigo";
-import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
+import Box from "@material-ui/core/Box";
+import TextField from '@material-ui/core/TextField';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+
+// Icons
 import CheckIcon from '@material-ui/icons/Check';
 import ClearIcon from '@material-ui/icons/Clear';
-import purple from "@material-ui/core/colors/purple";
+import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 
-const theme = createMuiTheme({
-    palette: {
-        primary: indigo,
-    },
-});
+// Styles
+import clsx from "clsx";
+import withStyles from "@material-ui/core/styles/withStyles";
+import {red, blue, purple} from "@material-ui/core/colors";
 
-const useStyles = makeStyles({
-    orderCard: {
-        marginBottom: 16
+const styles = theme => ({
+    OrderCard: {
+        marginBottom: 12,
+        '&:last-of-type': {
+            marginBottom: 0
+        }
     },
-    orderCardAvatar: {
-        margin: 8
-    },
-    orderCardContent: {
-        marginTop: 8,
-        marginBottom: 8
-    },
-    orderCardDescription: {
+    OrderCardDescription: {
+        maxHeight: 180,
+        padding: 4,
         marginTop: 4,
-        padding: 4
+        border: "solid 1px rgba(0,0,0,.08)",
+        borderRadius: 4,
+        overflowY: "auto",
+        [theme.breakpoints.down('sm')]: {
+            maxHeight: 140
+        }
     },
-    orderCardControls: {
-        height: "100%",
-        marginLeft: 8
+    OrderCardComment: {
+        maxHeight: 90,
+        padding: 4,
+        marginTop: 4,
+        border: "solid 1px rgba(0,0,0,.08)",
+        borderRadius: 4,
+        overflowY: "auto",
+        [theme.breakpoints.down('sm')]: {
+            maxHeight: 70
+        }
     },
+    OrderCardControls: {
+        display: "flex",
+        [theme.breakpoints.down('sm')]: {
+            marginLeft: "67%",
+            borderTopLeftRadius: 4,
+            overflow: "hidden"
+        },
+        [theme.breakpoints.down("xs")]: {
+            marginLeft: "0"
+        }
+    },
+
     orderCardControlsButton: {
-        width: 50,
-        borderRadius: 0
+        borderRadius: 0,
+        [theme.breakpoints.down('sm')]: {
+            height: 35,
+            flexGrow: 1
+        },
+        [theme.breakpoints.up('md')]: {
+            width: 50,
+            height: "100%"
+        }
     },
     orderCardControlsButtonAccept: {
         color: theme.palette.getContrastText(blue[500]),
@@ -52,7 +84,7 @@ const useStyles = makeStyles({
             backgroundColor: blue[700],
         }
     },
-    orderCardControlsButtonDismiss: {
+    orderCardControlsButtonReject: {
         color: theme.palette.getContrastText(red[500]),
         backgroundColor: red[500],
         '&:hover': {
@@ -68,93 +100,263 @@ const useStyles = makeStyles({
     }
 });
 
-export default function OrdersView() {
-    const classes = useStyles();
+const OrderState = {
+    CREATED: 'CREATED',
+    ACCEPTED: 'ACCEPTED',
+    REJECTED: 'REJECTED',
+    COMPLETED: 'COMPLETED',
+    COMMENTED: 'COMMENTED'
+};
 
-    // TODO get user type from api
-    let userType = UserType.CLIENT;
+export class OrdersView extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            userType: UserType.NONE,
+            orders: [],
+            comment: "",
+            commentedOrder: null,
+            isCommentDialogVisible: false
+        };
+    }
 
-    // TODO get order list from api
-    let orderList = [
-        {
-            avatar: "https://learnreduxwithdanabramov.com/static/dan-abramov-photo.png",
-            timestamp: new Date(2020, 2, 15, 12, 37, 15),
-            contact: "jan.kowalski@gmail.com",
-            description: "Opis oferty Jana Kowalskiego"
-        },
-        {
-            avatar: "https://learnreduxwithdanabramov.com/static/dan-abramov-photo.png",
-            timestamp: new Date(2020, 1, 8, 17, 58, 10),
-            contact: "+48 606 745 235",
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pulvinar elit eget erat " +
-                "sollicitudin vulputate. Sed sapien elit, efficitur a mi nec, imperdiet pharetra leo. Orci varius " +
-                "natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam tempor urna " +
-                "nulla, vitae euismod metus ultrices in. Praesent eget fringilla dolor. Nulla facilisi. Morbi " +
-                "eleifend, turpis eu aliquet ullamcorper, odio mi maximus nisl, non consectetur enim velit at odio. " +
-                "Vestibulum vestibulum, tellus eget varius iaculis, mi enim posuere purus, non efficitur elit enim " +
-                "vitae nisi. Nullam non eros felis. Nulla sed lacinia elit, ac ornare nisi. Mauris vitae nisl sed " +
-                "orci pretium suscipit. Curabitur bibendum felis ac sollicitudin viverra."
-        },
-        {
-            avatar: "https://learnreduxwithdanabramov.com/static/dan-abramov-photo.png",
-            timestamp: new Date(2020, 2, 24, 10, 13, 48),
-            contact: "agata.mydelko@gmail.com",
-            description: "Opis oferty Agaty Mydełko"
+    componentDidMount() {
+        // TODO call api
+        fetch('/test/orders.json')
+            .then(res => res.json())
+            .then((data) => {
+                this.setState({
+                    userType: data.userType,
+                    orders: data.orders,
+                    comment: "",
+                    commentedOrder: null,
+                    isCommentDialogVisible: false
+                })
+            })
+            .catch(console.log)
+    }
+
+    onAcceptOrder(order) {
+        order.state = OrderState.ACCEPTED;
+        this.forceUpdate()
+
+        // TODO call api
+    }
+
+    onRejectOrder(order) {
+        order.state = OrderState.REJECTED;
+        this.forceUpdate()
+
+        // TODO call api
+    }
+
+    onCommentOrder(order) {
+        this.setState(prevState => {
+            return{
+                ...prevState,
+                commentedOrder: order
+            }
+        });
+
+        this.onCommentDialogOpen()
+    }
+
+    onCommentDialogOpen() {
+        this.setState(prevState => {
+            return{
+                ...prevState,
+                isCommentDialogVisible: true
+            }
+        })
+    }
+
+    onCommentDialogValueChanged(value) {
+        this.setState(prevState => {
+            return{
+                ...prevState,
+                comment: value
+            }
+        })
+    }
+
+    onCommentDialogClose(confirmed) {
+        if (confirmed) {
+            this.state.commentedOrder.state = OrderState.COMMENTED;
+            this.state.commentedOrder.comment = this.state.comment;
+            this.forceUpdate()
+
+            // TODO call api
         }
-    ];
 
-    return (
-        orderList.map((order) =>
-            <Card className={classes.orderCard}>
-                <Grid
-                    container
-                    direction="row"
-                    alignItems="stretch"
-                >
-                    <Avatar
-                        className={classes.orderCardAvatar}
-                        src={order.avatar}/>
-                    <Grid item xs>
-                        <Grid container direction="column" className={classes.orderCardContent}>
-                            <span>
-                                {new Intl.DateTimeFormat("pl-PL", {
-                                    year: "numeric",
-                                    month: "long",
-                                    day: "2-digit",
-                                    hour: "numeric",
-                                    minute: "numeric"
-                                }).format(order.timestamp)}
-                            </span>
-                            <span>{order.contact}</span>
-                            <Paper variant="outlined" className={classes.orderCardDescription}>
-                                {order.description}
-                            </Paper>
-                        </Grid>
-                    </Grid>
-                    <Grid item>
-                        <Grid
-                            className={classes.orderCardControls}
-                            container
-                            direction="row"
-                        >
-                            <Button
-                                className={clsx(classes.orderCardControlsButton, classes.orderCardControlsButtonAccept)}
-                                disableElevation>
-                                <CheckIcon/>
-                            </Button>
-                            <Button
-                                className={clsx(classes.orderCardControlsButton, classes.orderCardControlsButtonDismiss)}
-                                disableElevation>
-                                <ClearIcon/>
-                            </Button>
-                            <Button
-                                className={clsx(classes.orderCardControlsButton, classes.orderCardControlsButtonComment)}
-                                disableElevation>
-                                <ChatBubbleOutlineIcon/>
-                            </Button>
-                        </Grid>
-                    </Grid>
-                </Grid>
-            </Card>
-        ));
+        this.setState(prevState => {
+            return{
+                ...prevState,
+                isCommentDialogVisible: false
+            }
+        });
+    }
+
+    render() {
+        const { classes } = this.props;
+        return [
+            this.renderCommentDialog(classes),
+            this.state.orders.map((order) => {
+                return order.state === OrderState.REJECTED ? null :
+                    <Card className={classes.OrderCard}>
+                        <div style={{ width: '100%' }}>
+                            <Box display={{ xs: 'none', md: 'flex' }}>
+                                <Box p={1}>
+                                    <Avatar src={order.avatar}/>
+                                </Box>
+                                <Box p={1} flexGrow={1}>
+                                    {this.renderOrderCardDescription(classes, order)}
+                                </Box>
+                                {this.renderOrderCardControls(classes, order)}
+                            </Box>
+                            <Box display={{ xs: 'flex', md: 'none' }} flexDirection="column">
+                                <Box display="flex">
+                                    <Box p={1}>
+                                        <Avatar src={order.avatar}/>
+                                    </Box>
+                                    <Box p={1} flexGrow={1}>
+                                        {this.renderOrderCardDescription(classes, order)}
+                                    </Box>
+                                </Box>
+                                {this.renderOrderCardControls(classes, order)}
+                            </Box>
+                        </div>
+                    </Card>
+                }
+            )
+        ];
+    }
+
+    renderOrderCardDescription(classes, order) {
+        return (
+            <Box display="flex" flexDirection="column">
+                <Box display="flex">
+                    <span>
+                    {
+                        new Intl.DateTimeFormat("pl-PL", {
+                            year: "numeric",
+                            month: "long",
+                            day: "2-digit",
+                            hour: "numeric",
+                            minute: "numeric"
+                        }).format(new Date(order.timestamp))
+                    }
+                    </span>
+                    <Box flexGrow={1}/>
+                    <span style={{color: "rgba(0,0,0,.51)"}}>
+                        {
+                            order.state === OrderState.CREATED && "Utworzone"
+                        }
+                        {
+                            order.state === OrderState.ACCEPTED && "Zaakceptowane"
+                        }
+                        {
+                            order.state === OrderState.REJECTED && "Odrzucone"
+                        }
+                        {
+                            (order.state === OrderState.COMPLETED || order.state === OrderState.COMMENTED) && "Zakończone"
+                        }
+                    </span>
+                </Box>
+                <span>{order.contact}</span>
+                <Box className={classes.OrderCardDescription}>
+                    {
+                        order.description.split('\n').map(function(item, key) {
+                            return (
+                                <span key={key}>
+                                    {item}
+                                    <br/>
+                                </span>
+                            )
+                        })
+                    }
+                </Box>
+                {
+                    order.comment !== "" &&
+                    <Box className={classes.OrderCardComment}>
+                        {
+                            order.comment.split('\n').map(function(item, key) {
+                            return (
+                                <span key={key}>
+                                    {item}
+                                    <br/>
+                                </span>
+                                )
+                            })
+                        }
+                    </Box>
+                }
+            </Box>
+        );
+    }
+
+    renderOrderCardControls(classes, order) {
+        return (
+            <Box className={classes.OrderCardControls}>
+                {
+                    this.state.userType === UserType.EXPERT && order.state === OrderState.CREATED &&
+                    <Button
+
+                        className={clsx(classes.orderCardControlsButton, classes.orderCardControlsButtonAccept)}
+                        disableElevation
+                        onClick={() => this.onAcceptOrder(order)}>
+                        <CheckIcon/>
+                    </Button>
+                }
+                {
+                    this.state.userType === UserType.EXPERT && order.state === OrderState.CREATED &&
+                    <Button
+                        className={clsx(classes.orderCardControlsButton, classes.orderCardControlsButtonReject)}
+                        disableElevation
+                        onClick={() => this.onRejectOrder(order)}>
+                        <ClearIcon/>
+                    </Button>
+                }
+                {
+                    this.state.userType === UserType.CLIENT && order.state === OrderState.COMPLETED &&
+                    <Button
+                        className={clsx(classes.orderCardControlsButton, classes.orderCardControlsButtonComment)}
+                        disableElevation
+                        onClick={() => this.onCommentOrder(order)}>
+                        <ChatBubbleOutlineIcon/>
+                    </Button>
+                }
+            </Box>
+        );
+    }
+
+    renderCommentDialog(classes) {
+        return (
+            <Dialog open={this.state.isCommentDialogVisible} onClose={()=>this.onCommentDialogClose(false)}>
+                <DialogTitle>Komentarz</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        Wpisz komentarz co do jakości wykonania zlecenia przez specjalistę. Komentarz pojawi się na profilu specjalisty.
+                    </DialogContentText>
+                    <TextField
+                        autoFocus
+                        fullWidth
+                        multiline
+                        rowsMax="5"
+                        value={this.state.comment}
+                        onChange={(event) => this.onCommentDialogValueChanged(event.target.value)}
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={()=>this.onCommentDialogClose(false)} color="primary">
+                        Anuluj
+                    </Button>
+                    <Button onClick={()=>this.onCommentDialogClose(true)} color="primary">
+                        Potwierdź
+                    </Button>
+                </DialogActions>
+            </Dialog>
+        );
+    }
 }
+
+export default withStyles(styles, { withTheme: true })(OrdersView);
