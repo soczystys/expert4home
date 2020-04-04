@@ -9,7 +9,7 @@ import java.util.Date;
 @Entity
 @Data
 @NoArgsConstructor
-public class Order {
+public class JobOrder {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;

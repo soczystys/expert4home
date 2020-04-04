@@ -23,4 +23,11 @@ public class User {
     private String passwordHash;
     private Boolean expertMode;
 
+    public User(String name, String surname, String login, String passwordHash, Boolean expertMode) {
+        this.name = name;
+        this.surname = surname;
+        this.login = login;
+        this.passwordHash = passwordHash;
+        this.expertMode = expertMode;
+    }
 }

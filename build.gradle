@@ -27,6 +27,7 @@ dependencies {
 	runtimeOnly 'com.h2database:h2'
 	implementation 'javax.xml.bind:jaxb-api:2.3.0'
 	implementation 'org.projectlombok:lombok:1.18.4'
+	implementation 'com.google.code.gson:gson:2.8.6'
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
