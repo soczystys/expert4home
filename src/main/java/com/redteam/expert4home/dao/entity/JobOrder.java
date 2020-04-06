@@ -30,5 +30,6 @@ public class JobOrder {
 
     private String description;
 
-//    TODO: Many to many relation
+    @OneToOne
+    private User expert;
 }

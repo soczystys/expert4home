@@ -3,10 +3,8 @@ package com.redteam.expert4home.dao.entity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -22,6 +20,9 @@ public class User {
     private String login;
     private String passwordHash;
     private Boolean expertMode;
+
+    @OneToMany
+    private List<JobOrder> placedOrders;
 
     public User(String name, String surname, String login, String passwordHash, Boolean expertMode) {
         this.name = name;
