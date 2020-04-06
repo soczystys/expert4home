@@ -4,6 +4,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 @Entity
@@ -30,5 +32,6 @@ public class User {
         this.login = login;
         this.passwordHash = passwordHash;
         this.expertMode = expertMode;
+        this.placedOrders = new LinkedList<>();
     }
 }
