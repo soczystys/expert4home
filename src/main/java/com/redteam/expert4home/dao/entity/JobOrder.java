@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -14,17 +15,23 @@ public class JobOrder {
     @Id
     private Long id;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date creationDate;
+    public JobOrder(LocalDateTime creationDate, LocalDateTime dueDate, LocalDateTime acceptationDate, LocalDateTime startDate, Boolean done, String description, User expert) {
+        this.creationDate = creationDate;
+        this.dueDate = dueDate;
+        this.acceptationDate = acceptationDate;
+        this.startDate = startDate;
+        this.done = done;
+        this.description = description;
+        this.expert = expert;
+    }
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date dueDate;
+    private LocalDateTime creationDate;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date acceptationDate;
+    private LocalDateTime dueDate;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date startDate;
+    private LocalDateTime acceptationDate;
+
+    private LocalDateTime startDate;
 
     private Boolean done;
 
