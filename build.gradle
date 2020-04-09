@@ -34,6 +34,7 @@ dependencies {
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
+	compile group: 'org.springframework.hateoas', name: 'spring-hateoas', version: '1.0.4.RELEASE'
 }
 
 test {
