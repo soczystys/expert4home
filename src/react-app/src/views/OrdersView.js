@@ -5,15 +5,7 @@ import {UserType} from "./Root";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
 import Box from "@material-ui/core/Box";
-import TextField from '@material-ui/core/TextField';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
 
 // Icons
 import CheckIcon from '@material-ui/icons/Check';
@@ -24,6 +16,8 @@ import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 import clsx from "clsx";
 import withStyles from "@material-ui/core/styles/withStyles";
 import {red, blue, purple} from "@material-ui/core/colors";
+import {CommentDialog} from "../components/CommentDialog";
+import {CreateOrderDialog} from "../components/CreateOrderDialog";
 
 const styles = theme => ({
     OrderCard: {
@@ -114,9 +108,8 @@ export class OrdersView extends React.Component {
         this.state = {
             userType: UserType.NONE,
             orders: [],
-            comment: "",
             commentedOrder: null,
-            isCommentDialogVisible: false
+            commentDialogVisibility: false
         };
     }
 
@@ -128,12 +121,20 @@ export class OrdersView extends React.Component {
                 this.setState({
                     userType: data.userType,
                     orders: data.orders,
-                    comment: "",
                     commentedOrder: null,
-                    isCommentDialogVisible: false
+                    commentDialogVisibility: false
                 })
             })
             .catch(console.log)
+    }
+
+    setCommentDialogVisibility(visibility) {
+        this.setState(prevState => {
+            return{
+                ...prevState,
+                commentDialogVisibility: visibility
+            }
+        });
     }
 
     onAcceptOrder(order) {
@@ -158,48 +159,27 @@ export class OrdersView extends React.Component {
             }
         });
 
-        this.onCommentDialogOpen()
+        this.setCommentDialogVisibility(true);
     }
 
-    onCommentDialogOpen() {
-        this.setState(prevState => {
-            return{
-                ...prevState,
-                isCommentDialogVisible: true
-            }
-        })
-    }
+    onCommentDialogConfirm(comment) {
+        this.state.commentedOrder.state = OrderState.COMMENTED;
+        this.state.commentedOrder.comment = comment;
+        this.forceUpdate();
 
-    onCommentDialogValueChanged(value) {
-        this.setState(prevState => {
-            return{
-                ...prevState,
-                comment: value
-            }
-        })
-    }
+        // TODO call api
 
-    onCommentDialogClose(confirmed) {
-        if (confirmed) {
-            this.state.commentedOrder.state = OrderState.COMMENTED;
-            this.state.commentedOrder.comment = this.state.comment;
-            this.forceUpdate()
-
-            // TODO call api
-        }
-
-        this.setState(prevState => {
-            return{
-                ...prevState,
-                isCommentDialogVisible: false
-            }
-        });
+        this.setCommentDialogVisibility(false);
     }
 
     render() {
         const { classes } = this.props;
         return [
-            this.renderCommentDialog(classes),
+            <CommentDialog
+                visibility={this.state.commentDialogVisibility}
+                onConfirm={(comment) => this.onCommentDialogConfirm(comment)}
+                onCancel={() => this.setCommentDialogVisibility(false)}
+            />,
             this.state.orders.map((order) => {
                 return order.state === OrderState.REJECTED ? null :
                     <Card className={classes.OrderCard}>
@@ -326,35 +306,6 @@ export class OrdersView extends React.Component {
                     </Button>
                 }
             </Box>
-        );
-    }
-
-    renderCommentDialog(classes) {
-        return (
-            <Dialog open={this.state.isCommentDialogVisible} onClose={()=>this.onCommentDialogClose(false)}>
-                <DialogTitle>Komentarz</DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                        Wpisz komentarz co do jakości wykonania zlecenia przez specjalistę. Komentarz pojawi się na profilu specjalisty.
-                    </DialogContentText>
-                    <TextField
-                        autoFocus
-                        fullWidth
-                        multiline
-                        rowsMax="5"
-                        value={this.state.comment}
-                        onChange={(event) => this.onCommentDialogValueChanged(event.target.value)}
-                    />
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={()=>this.onCommentDialogClose(false)} color="primary">
-                        Anuluj
-                    </Button>
-                    <Button onClick={()=>this.onCommentDialogClose(true)} color="primary">
-                        Potwierdź
-                    </Button>
-                </DialogActions>
-            </Dialog>
         );
     }
 }

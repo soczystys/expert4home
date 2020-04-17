@@ -56,7 +56,7 @@ task cloneIndexAsTemplate(type: Copy) {
 	into './src/main/resources/templates/'
 }
 
-task bootFrontEnd(type: NpmTask) {
+task bootFrontEnd(type: NpmTask, dependsOn: npmInstall) {
 	args = ['run-script', 'start']
 }
 
