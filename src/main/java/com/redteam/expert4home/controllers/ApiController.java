@@ -7,7 +7,6 @@ import com.redteam.expert4home.dao.UserRepository;
 import com.redteam.expert4home.dao.entity.User;
 import com.redteam.expert4home.dto.ExpertPage;
 import com.redteam.expert4home.dto.UserDTO;
-import lombok.val;
 import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -76,16 +75,21 @@ public class ApiController {
         expertPage.setExperts(experts.get().map(dtoTranslator::createUserDTO).collect(Collectors.toList()));
 
         if (experts.hasNext()) {
-            var linkToNex = linkTo(methodOn(ApiController.class).getExpertsList(pageSizeOptional, Optional.of(pageSize + 1)))
+            var linkToNex = linkTo(methodOn(ApiController.class).getExpertsList(pageSizeOptional, Optional.of(currentPageIndex + 1)))
                     .withRel("nextPage");
             expertPage.add(linkToNex);
         }
         if (experts.hasPrevious()) {
-            var linkToPrev = linkTo(methodOn(ApiController.class).getExpertsList(pageSizeOptional, Optional.of(pageSize - 1)))
+            var linkToPrev = linkTo(methodOn(ApiController.class).getExpertsList(pageSizeOptional, Optional.of(currentPageIndex - 1)))
                     .withRel("previousPage");
             expertPage.add(linkToPrev);
         }
-
+        var linkToFirst = linkTo(methodOn(ApiController.class).getExpertsList(pageSizeOptional, Optional.of(0)))
+                .withRel("firstPage");
+        expertPage.add(linkToFirst);
+        var linkToLast = linkTo(methodOn(ApiController.class).getExpertsList(pageSizeOptional, Optional.of(experts.getTotalPages() - 1)))
+                .withRel("lastPage");
+        expertPage.add(linkToLast);
 
         return ResponseEntity.ok(expertPage);
 
