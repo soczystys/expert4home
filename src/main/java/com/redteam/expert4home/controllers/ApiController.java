@@ -5,14 +5,19 @@ import com.redteam.expert4home.dao.JobOrderRepository;
 import com.redteam.expert4home.dao.Translator;
 import com.redteam.expert4home.dao.UserRepository;
 import com.redteam.expert4home.dao.entity.User;
+import com.redteam.expert4home.dto.ExpertPage;
 import com.redteam.expert4home.dto.UserDTO;
-import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @RestController
 @RequestMapping("/api")
@@ -35,7 +40,7 @@ public class ApiController {
     @GetMapping("/user/{id}")
     public ResponseEntity<UserDTO> getSingeUser(@PathVariable Long id)
     {
-        val user = userRepository.findById(id);
+        Optional<User> user = userRepository.findById(id);
         if (!user.isPresent()) {
             return ResponseEntity.notFound().build();
         }
@@ -44,10 +49,29 @@ public class ApiController {
     }
 
     @GetMapping("/expert")
-    public ResponseEntity<?> getExpertsList() {
+    public ResponseEntity<?> getExpertsList(
+            @RequestParam(name = "pageSize") Optional<Integer> pageSizeOptional,
+            @RequestParam(name = "currentPageIndex") Optional<Integer> currentPageIndexOptional) {
 
-        List<User> experts = Arrays.asList(new User("John", "Travolta", "jt", "afaaf", false));
+        if (pageSizeOptional.isPresent() && currentPageIndexOptional.isPresent()) {
 
-        return ResponseEntity.ok(gson.toJson(experts));
+            int currentPageIndex = currentPageIndexOptional.get();
+            int pageSize = pageSizeOptional.get();
+            Pageable pageable = PageRequest.of(currentPageIndex, pageSize);
+            Page<User> experts = userRepository.findAll(pageable);
+
+//            TODO: create association to next page and previous
+            ExpertPage expertPage = new ExpertPage();
+            expertPage.setPageSize(pageSize);
+            expertPage.setCurrentPageIndex(currentPageIndex);
+            expertPage.setExperts(experts.toList());
+            return ResponseEntity.ok(gson.toJson(expertPage));
+        } else {
+            Iterable<User> iterator = userRepository.findAll();
+            List<User> experts =  StreamSupport
+                    .stream(iterator.spliterator(), false)
+                    .collect(Collectors.toList());
+            return ResponseEntity.ok(gson.toJson(experts));
+        }
     }
 }
