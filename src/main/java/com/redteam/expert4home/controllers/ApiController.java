@@ -65,7 +65,7 @@ public class ApiController {
     @GetMapping("/orders")
     public ResponseEntity<?> getOrdersList(
             @RequestParam(name = "pageSize") Optional<Integer> pageSizeOptional,
-            @RequestParam(name = "currentPageIndex") Optional<Integer> currentPageIndexOptional) {
+            @RequestParam(name = "pageIndex") Optional<Integer> currentPageIndexOptional) {
 
         if (!pageSizeOptional.isPresent() || !currentPageIndexOptional.isPresent()) {
             Iterable<User> iterator = userRepository.findAll();
@@ -111,7 +111,7 @@ public class ApiController {
     @GetMapping("/experts")
     public ResponseEntity<?> getExpertsList(
             @RequestParam(name = "pageSize") Optional<Integer> pageSizeOptional,
-            @RequestParam(name = "currentPageIndex") Optional<Integer> currentPageIndexOptional) {
+            @RequestParam(name = "pageIndex") Optional<Integer> currentPageIndexOptional) {
 
         if (!pageSizeOptional.isPresent() || !currentPageIndexOptional.isPresent()) {
             Iterable<User> iterator = userRepository.findAll();
