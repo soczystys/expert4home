@@ -7,6 +7,7 @@ import com.redteam.expert4home.dao.UserRepository;
 import com.redteam.expert4home.dao.entity.JobOrder;
 import com.redteam.expert4home.dao.entity.User;
 import com.redteam.expert4home.dto.ExpertsPageDTO;
+import com.redteam.expert4home.dto.JobOrderDTO;
 import com.redteam.expert4home.dto.OrdersPageDTO;
 import com.redteam.expert4home.dto.UserDTO;
 import lombok.var;
@@ -44,10 +45,19 @@ public class ApiController {
     }
 
     @GetMapping("/user/{id}")
-    public ResponseEntity<UserDTO> getSingeUser(@PathVariable Long id) {
+    public ResponseEntity<UserDTO> getSingleUser(@PathVariable Long id) {
         Optional<User> user = userRepository.findById(id);
 
         return user.map(value -> ResponseEntity.ok(dtoTranslator.createUserDTO(value)))
+                .orElseGet(() -> ResponseEntity.notFound().build());
+
+    }
+
+    @GetMapping("/order/{id}")
+    public ResponseEntity<JobOrderDTO> getSingleOrder(@PathVariable Long id) {
+        Optional<JobOrder> jobOrder = jobOrderRepository.findById(id);
+
+        return jobOrder.map(value -> ResponseEntity.ok(dtoTranslator.createJobOrderDTO(value)))
                 .orElseGet(() -> ResponseEntity.notFound().build());
 
     }
@@ -63,6 +73,7 @@ public class ApiController {
                     .stream(iterator.spliterator(), false)
                     .collect(Collectors.toList());
             return ResponseEntity.ok(gson.toJson(experts));
+
         }
 
         int currentPageIndex = currentPageIndexOptional.get();

@@ -27,7 +27,7 @@ public class Translator {
                 .expertMode(user.getExpertMode())
                 .build();
 
-        val selfLink = linkTo(methodOn(ApiController.class).getSingeUser(userDTO.getId())).withSelfRel();
+        val selfLink = linkTo(methodOn(ApiController.class).getSingleUser(userDTO.getId())).withSelfRel();
         userDTO.add(selfLink);
 //        TODO: Add links to orders
 
