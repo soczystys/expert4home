@@ -45,11 +45,10 @@ public class ApiController {
     @GetMapping("/user/{id}")
     public ResponseEntity<UserDTO> getSingeUser(@PathVariable Long id) {
         Optional<User> user = userRepository.findById(id);
-        if (!user.isPresent()) {
-            return ResponseEntity.notFound().build();
-        }
 
-        return ResponseEntity.ok(dtoTranslator.createUserDTO(user.get()));
+        return user.map(value -> ResponseEntity.ok(dtoTranslator.createUserDTO(value)))
+                .orElseGet(() -> ResponseEntity.notFound().build());
+
     }
 
     @GetMapping("/expert")
