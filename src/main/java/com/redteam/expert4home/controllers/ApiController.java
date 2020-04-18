@@ -7,6 +7,8 @@ import com.redteam.expert4home.dao.UserRepository;
 import com.redteam.expert4home.dao.entity.User;
 import com.redteam.expert4home.dto.ExpertPage;
 import com.redteam.expert4home.dto.UserDTO;
+import lombok.val;
+import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,6 +20,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/api")
@@ -64,8 +68,21 @@ public class ApiController {
             ExpertPage expertPage = new ExpertPage();
             expertPage.setPageSize(pageSize);
             expertPage.setCurrentPageIndex(currentPageIndex);
-            expertPage.setExperts(experts.toList());
-            return ResponseEntity.ok(gson.toJson(expertPage));
+            expertPage.setExperts(experts.get().map(dtoTranslator::createUserDTO).collect(Collectors.toList()));
+
+            if (experts.hasNext()) {
+                var linkToNex = linkTo(methodOn(ApiController.class).getExpertsList(pageSizeOptional, Optional.of(pageSize+1)))
+                        .withRel("nextPage");
+                expertPage.add(linkToNex);
+            }
+            if (experts.hasPrevious()) {
+                var linkToPrev = linkTo(methodOn(ApiController.class).getExpertsList(pageSizeOptional, Optional.of(pageSize-1)))
+                        .withRel("previousPage");
+                expertPage.add(linkToPrev);
+            }
+
+
+            return ResponseEntity.ok(expertPage);
         } else {
             Iterable<User> iterator = userRepository.findAll();
             List<User> experts =  StreamSupport

@@ -24,7 +24,6 @@ public class Translator {
                 .name(user.getName())
                 .surname(user.getSurname())
                 .expertMode(user.getExpertMode())
-                .passwordHash(user.getPasswordHash())
                 .build();
 
         val selfLink = linkTo(methodOn(ApiController.class).getSingeUser(userDTO.getId())).withSelfRel();
