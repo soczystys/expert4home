@@ -1,6 +1,6 @@
 package com.redteam.expert4home.dao;
 
-import com.redteam.expert4home.controllers.ApiController;
+import com.redteam.expert4home.controllers.ExpertsController;
 import com.redteam.expert4home.dao.entity.JobOrder;
 import com.redteam.expert4home.dao.entity.User;
 import com.redteam.expert4home.dto.JobOrderDTO;
@@ -27,7 +27,7 @@ public class Translator {
                 .expertMode(user.getExpertMode())
                 .build();
 
-        val selfLink = linkTo(methodOn(ApiController.class).getSingleUser(userDTO.getId())).withSelfRel();
+        val selfLink = linkTo(methodOn(ExpertsController.class).getSingleUser(userDTO.getId())).withSelfRel();
         userDTO.add(selfLink);
 //        TODO: Add links to orders
 
