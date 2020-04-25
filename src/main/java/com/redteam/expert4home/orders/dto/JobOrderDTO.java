@@ -1,4 +1,4 @@
-package com.redteam.expert4home.dto;
+package com.redteam.expert4home.orders.dto;
 
 import lombok.*;
 

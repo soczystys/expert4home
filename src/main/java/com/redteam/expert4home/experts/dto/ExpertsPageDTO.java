@@ -1,4 +1,4 @@
-package com.redteam.expert4home.dto;
+package com.redteam.expert4home.experts.dto;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

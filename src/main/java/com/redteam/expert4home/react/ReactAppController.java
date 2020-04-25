@@ -1,4 +1,4 @@
-package com.redteam.expert4home.controllers;
+package com.redteam.expert4home.react;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 

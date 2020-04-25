@@ -1,10 +1,10 @@
 package com.redteam.expert4home.dao;
 
-import com.redteam.expert4home.controllers.ExpertsController;
+import com.redteam.expert4home.experts.controller.ExpertsController;
 import com.redteam.expert4home.dao.entity.JobOrder;
 import com.redteam.expert4home.dao.entity.User;
-import com.redteam.expert4home.dto.JobOrderDTO;
-import com.redteam.expert4home.dto.UserDTO;
+import com.redteam.expert4home.orders.dto.JobOrderDTO;
+import com.redteam.expert4home.experts.dto.UserDTO;
 import lombok.val;
 import org.springframework.stereotype.Service;
 

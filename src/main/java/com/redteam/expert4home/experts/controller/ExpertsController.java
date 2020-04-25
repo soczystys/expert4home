@@ -1,10 +1,10 @@
-package com.redteam.expert4home.controllers;
+package com.redteam.expert4home.experts.controller;
 
 import com.redteam.expert4home.dao.Translator;
 import com.redteam.expert4home.dao.UserRepository;
 import com.redteam.expert4home.dao.entity.User;
-import com.redteam.expert4home.dto.ExpertsPageDTO;
-import com.redteam.expert4home.dto.UserDTO;
+import com.redteam.expert4home.experts.dto.ExpertsPageDTO;
+import com.redteam.expert4home.experts.dto.UserDTO;
 import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

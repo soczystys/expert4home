@@ -1,10 +1,10 @@
-package com.redteam.expert4home.controllers;
+package com.redteam.expert4home.orders.controller;
 
 import com.redteam.expert4home.dao.JobOrderRepository;
 import com.redteam.expert4home.dao.Translator;
 import com.redteam.expert4home.dao.entity.JobOrder;
-import com.redteam.expert4home.dto.JobOrderDTO;
-import com.redteam.expert4home.dto.OrdersPageDTO;
+import com.redteam.expert4home.orders.dto.JobOrderDTO;
+import com.redteam.expert4home.orders.dto.OrdersPageDTO;
 import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
