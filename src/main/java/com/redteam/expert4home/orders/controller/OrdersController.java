@@ -93,5 +93,4 @@ public class OrdersController {
                 .withRel("lastPage");
         ordersPageDTO.add(linkToLast);
     }
-
 }
