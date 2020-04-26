@@ -4,7 +4,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -23,7 +22,7 @@ public class User {
     private String passwordHash;
     private Boolean expertMode;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<JobOrder> placedOrders;
 
     public User(String name, String surname, String login, String passwordHash, Boolean expertMode) {

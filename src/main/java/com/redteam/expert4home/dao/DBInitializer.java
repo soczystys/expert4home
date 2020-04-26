@@ -8,7 +8,8 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class DBInitializer {
@@ -25,19 +26,44 @@ public class DBInitializer {
     @EventListener(ApplicationReadyEvent.class)
     private void fillDatabaseWithInitialData() {
         System.out.println("Now data shall be added");
+        List<User> userList = saveUsers(20);
+        saveOrders(userList, 60);
+    }
 
-        User joe = new User("Joe", "Malinowski", "joeM23", "asdfaas", false);
-        User tom = new User("Tom", "Scot", "coolguy220", "gjklj37784", false);
-        User jerry = new User("Jerry", "Wise", "expertNumberOne", "aflkjnvvnx", true);
-
-        userRepository.saveAll(Arrays.asList(joe, tom, jerry));
-
+    private void saveOrders(List<User> userList, int orderCount) {
         LocalDateTime currentDate = LocalDateTime.now();
-        JobOrder fixCar = new JobOrder(currentDate, null, currentDate.plusDays(7), null, false, "My carr is smoking", jerry);
-        JobOrder changeTires = new JobOrder(currentDate, null, currentDate.plusDays(7), null, false, "Winter is coming so I need winter tires", jerry);
+        List<JobOrder> jobOrderList = new ArrayList<>();
+        userRepository.findAll().forEach(userList::add);
+        for (int i = orderCount; i > 0; i--) {
+            User user = userList.get(i % userList.size());
+            JobOrder jobOrder = new JobOrder(
+                    currentDate.minusDays(i),
+                    currentDate.minusDays(i),
+                    currentDate.plusDays(i),
+                    currentDate.plusDays(i),
+                    i % 2 == 0,
+                    "description" + i,
+                    user
+            );
+            jobOrderList.add(jobOrder);
+            user.getPlacedOrders().add(jobOrder);
+        }
+        jobOrderRepository.saveAll(jobOrderList);
+    }
 
-        jobOrderRepository.saveAll(Arrays.asList(fixCar, changeTires));
-        joe.getPlacedOrders().addAll(Arrays.asList(fixCar, changeTires));
-        userRepository.save(joe);
+    private List<User> saveUsers(int userCount) {
+        List<User> userList = new ArrayList<>();
+        for (int i = 0; i < userCount; i++) {
+            User user = new User(
+                    "user" + i,
+                    "surname" + i,
+                    "login" + i,
+                    "passwordHash" + i,
+                    i % 2 == 0
+            );
+            userList.add(user);
+            userRepository.save(user);
+        }
+        return userList;
     }
 }
