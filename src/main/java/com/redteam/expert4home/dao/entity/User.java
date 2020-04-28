@@ -2,6 +2,7 @@ package com.redteam.expert4home.dao.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.LinkedList;
@@ -10,6 +11,7 @@ import java.util.List;
 @Entity
 @Data
 @NoArgsConstructor
+@ToString
 public class User {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)

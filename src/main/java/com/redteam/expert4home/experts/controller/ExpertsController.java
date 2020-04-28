@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +23,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/users")
 public class ExpertsController {
 
     private final UserRepository userRepository;
@@ -34,7 +35,7 @@ public class ExpertsController {
         this.dtoTranslator = dtoTranslator;
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping(path = "{id}")
     public ResponseEntity<UserDTO> getSingleUser(@PathVariable Long id) {
         Optional<User> user = userRepository.findById(id);
 
@@ -42,8 +43,72 @@ public class ExpertsController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @GetMapping(path = "/mylogin/{login}")
+    public ResponseEntity<UserDTO> getUserByLogin(@PathVariable String login) {
+//        Optional<User> user = userRepository.findByLogin(login);
+        Optional<User> userOptional = userRepository.findFirstByLogin(login);
 
-    @GetMapping("/experts")
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            System.out.println(user.getId() + "\n" + user.getLogin() + "\n" + user.getName());
+        } else {
+            System.out.println("YOUR USER IS NOONE");
+        }
+
+        return userOptional.map(value -> ResponseEntity.ok(dtoTranslator.createUserDTO(value)))
+                .orElseGet(() -> ResponseEntity.notFound().build());
+//        return ResponseEntity.ok(dtoTranslator.createUserDTO(user));
+    }
+
+    @GetMapping("example")
+    public List<User> exampleMethod() {
+        return userRepository.findByName("name1");
+    }
+
+    @PostMapping
+    public ResponseEntity<UserDTO> postSingleUser(@RequestBody User user) {
+        Optional<User> userOptional = userRepository.findFirstByLogin(user.getLogin());
+        if (!userOptional.isPresent()) {
+            userRepository.save(user);
+            return ResponseEntity.ok(dtoTranslator.createUserDTO(user));
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+//        return userOptional.map(value -> {
+//
+//        }).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @PutMapping(path = "{id}")
+    public ResponseEntity putSingleUser(@PathVariable Long id, @RequestBody User user) {
+        Optional<User> oldUser = userRepository.findById(id);
+
+        System.out.println(oldUser);
+        System.out.println(user);
+        System.out.println(oldUser.isPresent());
+        if (user == null) {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+        if (oldUser.isPresent()) {
+            if (user.getName() != null) {
+                if (!user.getName().isEmpty()) {
+                    oldUser.get().setName(user.getName());
+                }
+            }
+            if (user.getSurname() != null) {
+                if (!user.getSurname().isEmpty()) {
+                    oldUser.get().setSurname(user.getSurname());
+                }
+            }
+            userRepository.save(oldUser.get());
+            System.out.println(oldUser);
+            return new ResponseEntity(HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity(HttpStatus.IM_USED);
+        }
+    }
+
+    @GetMapping
     public ResponseEntity<?> getExpertsList(
             @RequestParam(name = "pageSize") Optional<Integer> pageSizeOptional,
             @RequestParam(name = "pageIndex") Optional<Integer> currentPageIndexOptional) {
