@@ -4,6 +4,8 @@ import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
 import { withStyles } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom'
+
 
 const styles = theme => ({
     root: {
@@ -40,9 +42,14 @@ export class Search extends React.Component{
                         placeholder="Wpisz szukaną frazę"
                         inputProps={{'label': 'Wpisz szukaną frazę'}}
                     />
-                    <IconButton type="submit" className={classes.iconButton} aria-label="search">
+                    {this.props.isInHome ? (<IconButton component={Link} to="/app/search" type="submit" className={classes.iconButton} aria-label="search">
                         <SearchIcon/>
-                    </IconButton>
+                    </IconButton>):(<IconButton type="submit" className={classes.iconButton} aria-label="search">
+                        <SearchIcon/>
+                    </IconButton>)
+
+                    }
+
 
                 </Paper>
 

@@ -2,6 +2,8 @@ import React from "react";
 import {UserType} from "./Root";
 import Search from "../components/Search";
 import ProfileList from "../components/ProfileList";
+import { Link } from 'react-router-dom'
+
 
 class HomeView extends React.Component{
 
@@ -24,9 +26,14 @@ class HomeView extends React.Component{
                     console.log(error);
                 });
     }
+    passInput(e){
+        e.preventDefault();
+        console.log(e.target[0].value);
+    }
+
     render() {
         return (<>
-            <Search></Search>
+            <Search isInHome={true} onClick={this.passInput} ></Search>
             <ProfileList items={this.state.experts}></ProfileList>
 
         </>);
