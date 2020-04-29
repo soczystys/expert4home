@@ -14,7 +14,18 @@ public class JobOrder {
     @Id
     private Long id;
 
-    public JobOrder(LocalDateTime creationDate, LocalDateTime dueDate, LocalDateTime acceptationDate, LocalDateTime startDate, Boolean done, String description, User expert) {
+    public JobOrder(
+            LocalDateTime creationDate,
+            LocalDateTime dueDate,
+            LocalDateTime acceptationDate,
+            LocalDateTime startDate,
+            Boolean done,
+            String description,
+            User expert,
+            String contact,
+            String state,
+            String comment
+    ) {
         this.creationDate = creationDate;
         this.dueDate = dueDate;
         this.acceptationDate = acceptationDate;
@@ -22,6 +33,9 @@ public class JobOrder {
         this.done = done;
         this.description = description;
         this.expert = expert;
+        this.contact = contact;
+        this.comment = comment;
+        this.state = state;
     }
 
     private LocalDateTime creationDate;
@@ -35,6 +49,12 @@ public class JobOrder {
     private Boolean done;
 
     private String description;
+
+    private String state;
+
+    private String contact;
+
+    private String comment;
 
     @OneToOne
     private User expert;

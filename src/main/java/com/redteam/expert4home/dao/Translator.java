@@ -43,6 +43,9 @@ public class Translator {
                 .description(jobOrder.getDescription())
                 .dueDate(jobOrder.getDueDate())
                 .startDate(jobOrder.getStartDate())
+                .comment(jobOrder.getComment())
+                .state(jobOrder.getState())
+                .contact(jobOrder.getContact())
                 .build();
 
 //        val selfLink = linkTo(methodOn(ApiController.class).getSingeUser(jobOrderDto.getId())).withSelfRel();

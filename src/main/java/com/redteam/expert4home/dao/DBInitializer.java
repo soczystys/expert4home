@@ -43,7 +43,10 @@ public class DBInitializer {
                     currentDate.plusDays(i),
                     i % 2 == 0,
                     "description" + i,
-                    user
+                    user,
+                    "contact"+i+"gmail.com",
+                    "CREATED",
+                    "comment"+i
             );
             jobOrderList.add(jobOrder);
             user.getPlacedOrders().add(jobOrder);
