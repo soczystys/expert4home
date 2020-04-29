@@ -73,14 +73,14 @@ public class ExpertsController {
     }
 
     @GetMapping("/current")
-    public ResponseEntity getCurrentUser() {
+    public String getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         System.out.println("credentials\n" + authentication.getCredentials());
         System.out.println("authorities\n" + authentication.getAuthorities());
         System.out.println("name\n" + authentication.getName());
         System.out.println("details\n" + authentication.getDetails());
 
-        return new ResponseEntity(HttpStatus.ACCEPTED);
+        return authentication.getName();
     }
 
     @PreAuthorize("#userHandle == authentication.name")
