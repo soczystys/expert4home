@@ -34,7 +34,7 @@ export class Search extends React.Component{
         const {classes} = this.props;
         return (
             <>
-                <Paper component="form" className={classes.root}>
+                <Paper component="form" className={classes.root} onSubmit={this.props.onClick}>
                     <InputBase
                         className={classes.input}
                         placeholder="Wpisz szukaną frazę"

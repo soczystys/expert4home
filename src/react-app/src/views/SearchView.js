@@ -6,13 +6,33 @@ class SearchView extends React.Component{
     constructor(props) {
         super(props);
         this.state={
-            experts : []
+            experts : [],
+            expertsToView:[],
         }
     }
     filterItems = (e)=>{
         e.preventDefault();
-        console.log("jello")
-    }
+        const input = e.target[0].value;
+        this.setState((prevState)=>{
+           const expertsToView = prevState.experts.filter((expert)=>{
+                const keys = Object.keys(expert);
+                for(const key of keys){
+                    if(expert[key].toLowerCase().includes(input.toLowerCase())){
+                        return true;
+                    }
+                }
+           });
+           console.log(expertsToView);
+           return ({
+               experts:prevState.experts,
+               expertsToView:expertsToView
+           })
+        })
+        console.log(
+            this.state.expertsToView
+        )
+        }
+
     componentDidMount() {
         fetch('/test/users.json')
             .then(res => res.json())
@@ -20,6 +40,7 @@ class SearchView extends React.Component{
                 (data) => {
                 this.setState({
                     experts: data.experts,
+                    expertsToView: data.experts
                 });
             },
                 (error)=>{
@@ -30,7 +51,7 @@ class SearchView extends React.Component{
         return(
         <>
             <Search onClick={this.filterItems}></Search>
-            <ProfileList items={this.state.experts}></ProfileList>
+            <ProfileList items={this.state.expertsToView}></ProfileList>
         </>)
     }
 }
