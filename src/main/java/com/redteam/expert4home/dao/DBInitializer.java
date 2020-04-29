@@ -24,7 +24,7 @@ public class DBInitializer {
     }
 
     @EventListener(ApplicationReadyEvent.class)
-    private void fillDatabaseWithInitialData() {
+    public void fillDatabaseWithInitialData() {
         System.out.println("Now data shall be added");
         List<User> userList = saveUsers(20);
         saveOrders(userList, 60);
@@ -33,7 +33,7 @@ public class DBInitializer {
     private void saveOrders(List<User> userList, int orderCount) {
         LocalDateTime currentDate = LocalDateTime.now();
         List<JobOrder> jobOrderList = new ArrayList<>();
-        userRepository.findAll().forEach(userList::add);
+//        userRepository.findAll().forEach(userList::add);
         for (int i = orderCount; i > 0; i--) {
             User user = userList.get(i % userList.size());
             String state;
@@ -58,6 +58,7 @@ public class DBInitializer {
             );
             jobOrderList.add(jobOrder);
             user.getPlacedOrders().add(jobOrder);
+            userRepository.save(user);
         }
         jobOrderRepository.saveAll(jobOrderList);
     }
