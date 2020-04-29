@@ -1,0 +1,50 @@
+{
+  "userType": "CLIENT",
+  "orders": [
+    {
+      "id": "1",
+      "state": "CREATED",
+      "avatar": "https://learnreduxwithdanabramov.com/static/dan-abramov-photo.png",
+      "timestamp": "2020-02-15T12:37:15.000Z",
+      "contact": "jan.kowalski@gmail.com",
+      "description": "Opis oferty Jana Kowalskiego",
+      "comment": ""
+    },
+    {
+      "id": "2",
+      "state": "CREATED",
+      "avatar": "https://learnreduxwithdanabramov.com/static/dan-abramov-photo.png",
+      "timestamp": "2020-01-08T17:58:10.000Z",
+      "contact": "+48 606 745 235",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pulvinar elit eget erat sollicitudin vulputate. Sed sapien elit, efficitur a mi nec, imperdiet pharetra leo. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam tempor urna nulla, vitae euismod metus ultrices in. Praesent eget fringilla dolor. Nulla facilisi. Morbi eleifend, turpis eu aliquet ullamcorper, odio mi maximus nisl, non consectetur enim velit at odio. Vestibulum vestibulum, tellus eget varius iaculis, mi enim posuere purus, non efficitur elit enim vitae nisi. Nullam non eros felis. Nulla sed lacinia elit, ac ornare nisi. Mauris vitae nisl sed orci pretium suscipit. Curabitur bibendum felis ac sollicitudin viverra.",
+      "comment": ""
+    },
+    {
+      "id": "3",
+      "state": "ACCEPTED",
+      "avatar": "https://learnreduxwithdanabramov.com/static/dan-abramov-photo.png",
+      "timestamp": "2020-02-24T10:13:48.000Z",
+      "contact": "agata.mydelko@gmail.com",
+      "description": "Opis oferty Agaty Mydełko",
+      "comment": ""
+    },
+    {
+      "id": "4",
+      "state": "REJECTED",
+      "avatar": "https://learnreduxwithdanabramov.com/static/dan-abramov-photo.png",
+      "timestamp": "2020-02-24T10:13:48.000Z",
+      "contact": "agata.mydelko@gmail.com",
+      "description": "Opis oferty Agaty Mydełko",
+      "comment": ""
+    },
+    {
+      "id": "5",
+      "state": "COMPLETED",
+      "avatar": "https://learnreduxwithdanabramov.com/static/dan-abramov-photo.png",
+      "timestamp": "2020-02-24T10:13:48.000Z",
+      "contact": "agata.mydelko@gmail.com",
+      "description": "Opis oferty Agaty Mydełko",
+      "comment": ""
+    }
+  ]
+}

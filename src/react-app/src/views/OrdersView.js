@@ -17,7 +17,6 @@ import clsx from "clsx";
 import withStyles from "@material-ui/core/styles/withStyles";
 import {red, blue, purple} from "@material-ui/core/colors";
 import {CommentDialog} from "../components/CommentDialog";
-import {CreateOrderDialog} from "../components/CreateOrderDialog";
 
 const styles = theme => ({
     OrderCard: {
@@ -106,7 +105,7 @@ export class OrdersView extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            userType: UserType.NONE,
+            userType: props.userType,
             orders: [],
             commentedOrder: null,
             commentDialogVisibility: false
@@ -114,18 +113,46 @@ export class OrdersView extends React.Component {
     }
 
     componentDidMount() {
-        // TODO call api
-        fetch('/test/orders.json')
-            .then(res => res.json())
-            .then((data) => {
-                this.setState({
-                    userType: data.userType,
-                    orders: data.orders,
-                    commentedOrder: null,
-                    commentDialogVisibility: false
+        if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
+            fetch('/test/orders.json')
+                .then(res => res.json())
+                .then((data) => {
+                    this.setState(prevState => {
+                        return {
+                            ...prevState,
+                            orders: data,
+                            commentedOrder: null,
+                            commentDialogVisibility: false
+                        }
+                    })
                 })
+                .catch(console.log)
+        } else {
+            fetch('/api/orders')
+                .then(res => res.json())
+                .then((data) => {
+                    this.setState(prevState => {
+                        return {
+                            ...prevState,
+                            orders: data,
+                            commentedOrder: null,
+                            commentDialogVisibility: false
+                        }
+                    })
+                })
+                .catch(console.log)
+        }
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.props.userType !== prevProps.userType) {
+            this.setState(prevState => {
+                return {
+                    ...prevState,
+                    userType: this.props.userType
+                }
             })
-            .catch(console.log)
+        }
     }
 
     setCommentDialogVisibility(visibility) {
@@ -217,13 +244,20 @@ export class OrdersView extends React.Component {
                 <Box display="flex">
                     <span>
                     {
-                        new Intl.DateTimeFormat("pl-PL", {
-                            year: "numeric",
-                            month: "long",
-                            day: "2-digit",
-                            hour: "numeric",
-                            minute: "numeric"
-                        }).format(new Date(order.timestamp))
+                        (() => {
+                            let d = new Date(order.startDate);
+                            if (d instanceof Date && !isNaN(d)) {
+                                return new Intl.DateTimeFormat("pl-PL", {
+                                    year: "numeric",
+                                    month: "long",
+                                    day: "2-digit",
+                                    hour: "numeric",
+                                    minute: "numeric"
+                                }).format(d)
+                            } else {
+                                return "Termin nieznany"
+                            }
+                        })()
                     }
                     </span>
                     <Box flexGrow={1}/>
