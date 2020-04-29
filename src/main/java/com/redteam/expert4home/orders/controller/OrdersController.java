@@ -82,6 +82,27 @@ public class OrdersController {
         return ResponseEntity.created(createdOrderDto.getRequiredLink("self").toUri()).body(createdOrderDto);
     }
 
+    @PutMapping("/order/{id}")
+    ResponseEntity<?> updateOrder(@PathVariable Long id, @RequestBody JobOrderDTO jobOrderDTO) {
+        val jobOrderOptional = jobOrderRepository.findById(id);
+        if (!jobOrderOptional.isPresent())
+            return ResponseEntity.notFound().build();
+
+        val jobOrder = jobOrderOptional.get();
+        jobOrder.setAcceptationDate(jobOrderDTO.getAcceptationDate());
+        jobOrder.setComment(jobOrderDTO.getComment());
+        jobOrder.setContact(jobOrderDTO.getContact());
+        jobOrder.setCreationDate(jobOrderDTO.getCreationDate());
+        jobOrder.setDescription(jobOrderDTO.getDescription());
+        jobOrder.setDone(jobOrderDTO.getDone());
+        jobOrder.setDueDate(jobOrderDTO.getDueDate());
+        jobOrder.setStartDate(jobOrderDTO.getStartDate());
+        jobOrder.setState(jobOrderDTO.getState());
+
+        jobOrderRepository.save(jobOrder);
+        return ResponseEntity.ok(dtoTranslator.createJobOrderDTO(jobOrder));
+    }
+
     @PostMapping("/order/test")
     public ResponseEntity<?> createOrderTest(@RequestBody JobOrderDTO jobOrderDTO, @RequestParam Long expertId) {
         val login = "login1";
