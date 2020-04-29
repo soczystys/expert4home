@@ -14,6 +14,16 @@ public class JobOrder {
     @Id
     private Long id;
 
+    private LocalDateTime creationDate;
+    private LocalDateTime dueDate;
+    private LocalDateTime acceptationDate;
+    private LocalDateTime startDate;
+    private Boolean done;
+    private String description;
+    private String state;
+    private String contact;
+    private String comment;
+
     public JobOrder(
             LocalDateTime creationDate,
             LocalDateTime dueDate,
@@ -37,24 +47,6 @@ public class JobOrder {
         this.comment = comment;
         this.state = state;
     }
-
-    private LocalDateTime creationDate;
-
-    private LocalDateTime dueDate;
-
-    private LocalDateTime acceptationDate;
-
-    private LocalDateTime startDate;
-
-    private Boolean done;
-
-    private String description;
-
-    private String state;
-
-    private String contact;
-
-    private String comment;
 
     @OneToOne
     private User expert;

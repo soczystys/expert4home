@@ -49,8 +49,9 @@ public class OrdersController {
 
         if (!pageSizeOptional.isPresent() || !currentPageIndexOptional.isPresent()) {
             Iterable<JobOrder> iterator = jobOrderRepository.findAll();
-            List<JobOrder> orders = StreamSupport
+            List<JobOrderDTO> orders = StreamSupport
                     .stream(iterator.spliterator(), false)
+                    .map(dtoTranslator::createJobOrderDTO)
                     .collect(Collectors.toList());
             return ResponseEntity.ok(orders);
         }
