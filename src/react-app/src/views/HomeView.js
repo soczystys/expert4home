@@ -3,30 +3,33 @@ import {UserType} from "./Root";
 import Search from "../components/Search";
 import ProfileList from "../components/ProfileList";
 
-export default function HomeView() {
-    let userType = UserType.CLIENT;
-    const profiles=[
-        {image:"https://learnreduxwithdanabramov.com/static/dan-abramov-photo.png",
-            name:"Dan Abramov",
-            description:"Making React accessible for users and developers at https://reach.tech . Online learning, workshops, OSS, and consulting.",
-            rank:"4"},
-        {image:"https://learnreduxwithdanabramov.com/static/dan-abramov-photo.png",
-            name:"Dan Abramov",
-            description:"Making React accessible for users and developers at https://reach.tech . Online learning, workshops, OSS, and consulting.",
-            rank:"4"
-        },
-        {image:"https://learnreduxwithdanabramov.com/static/dan-abramov-photo.png",
-            name:"Dan Abramov",
-            description:"Making React accessible for users and developers at https://reach.tech . Online learning, workshops, OSS, and consulting.",
-            rank:"4"
+class HomeView extends React.Component{
+
+    constructor() {
+        super();
+        this.state={
+            experts:[],
         }
+    }
+    componentDidMount() {
+        fetch('/test/users.json')
+            .then(res => res.json())
+            .then(
+                (data) => {
+                    this.setState({
+                        experts: [data.experts[0],data.experts[1],data.experts[2]]
+                    });
+                },
+                (error)=>{
+                    console.log(error);
+                });
+    }
+    render() {
+        return (<>
+            <Search></Search>
+            <ProfileList items={this.state.experts}></ProfileList>
 
-
-    ];
-
-    return (   <>
-        <Search></Search>
-        <ProfileList items={profiles}></ProfileList>
-
-    </>);
+        </>);
+    }
 }
+export default HomeView;

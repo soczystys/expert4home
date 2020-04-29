@@ -28,9 +28,7 @@ class SearchView extends React.Component{
                expertsToView:expertsToView
            })
         })
-        console.log(
-            this.state.expertsToView
-        )
+      
         }
 
     componentDidMount() {
