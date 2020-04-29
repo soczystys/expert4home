@@ -20,4 +20,10 @@ public class JobOrderDTO {
     private Boolean done;
 
     private String description;
+
+    private String state;
+
+    private String contact;
+
+    private String comment;
 }
