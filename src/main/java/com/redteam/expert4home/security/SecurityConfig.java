@@ -33,7 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors().and()
                 .authorizeRequests()
                 .antMatchers("/**")
-                .hasRole(ADMIN.name())
+                .hasAnyRole(ADMIN.name(), USER.name(), EXPERT.name())
 //                .permitAll();
                 .anyRequest()
                 .authenticated()
@@ -63,8 +63,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .roles(ADMIN.name())
                 .build();
         UserDetails user = User.builder()
-                .username("user")
-                .password(passwordEncoder.encode("user"))
+                .username("user1")
+                .password(passwordEncoder.encode("user1"))
+                .roles(USER.name())
+                .build();
+        UserDetails user2 = User.builder()
+                .username("login1")
+                .password(passwordEncoder.encode("password1"))
                 .roles(USER.name())
                 .build();
         UserDetails expert = User.builder()
@@ -72,6 +77,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .password(passwordEncoder.encode("expert"))
                 .roles(EXPERT.name())
                 .build();
-        return new InMemoryUserDetailsManager(admin, user, expert);
+        return new InMemoryUserDetailsManager(admin, user, user2, expert);
     }
 }

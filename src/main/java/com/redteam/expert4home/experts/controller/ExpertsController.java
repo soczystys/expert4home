@@ -12,6 +12,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -43,6 +46,15 @@ public class ExpertsController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @PreAuthorize("#login == authentication.name")
+    @GetMapping(path = "/secure/{login}")
+    public ResponseEntity<UserDTO> getSingleUserSecured(@PathVariable String login) {
+        Optional<User> user = userRepository.findFirstByLogin(login);
+
+        return user.map(value -> ResponseEntity.ok(dtoTranslator.createUserDTO(value)))
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
     @GetMapping(path = "/mylogin/{login}")
     public ResponseEntity<UserDTO> getUserByLogin(@PathVariable String login) {
 //        Optional<User> user = userRepository.findByLogin(login);
@@ -60,11 +72,18 @@ public class ExpertsController {
 //        return ResponseEntity.ok(dtoTranslator.createUserDTO(user));
     }
 
-    @GetMapping("example")
-    public List<User> exampleMethod() {
-        return userRepository.findByName("name1");
+    @GetMapping("/current")
+    public ResponseEntity getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        System.out.println("credentials\n" + authentication.getCredentials());
+        System.out.println("authorities\n" + authentication.getAuthorities());
+        System.out.println("name\n" + authentication.getName());
+        System.out.println("details\n" + authentication.getDetails());
+
+        return new ResponseEntity(HttpStatus.ACCEPTED);
     }
 
+    @PreAuthorize("#userHandle == authentication.name")
     @PostMapping
     public ResponseEntity<UserDTO> postSingleUser(@RequestBody User user) {
         Optional<User> userOptional = userRepository.findFirstByLogin(user.getLogin());
@@ -78,6 +97,8 @@ public class ExpertsController {
 //
 //        }).orElseGet(() -> ResponseEntity.notFound().build());
     }
+
+
 
     @PutMapping(path = "{id}")
     public ResponseEntity putSingleUser(@PathVariable Long id, @RequestBody User user) {
