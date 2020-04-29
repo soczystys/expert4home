@@ -1,49 +1,37 @@
 import React from "react";
-import ProfileCard from "../components/ProfileCard";
 import Search from "../components/Search"
 import ProfileList from "../components/ProfileList";
 
-const profiles=[
-    {image:"https://learnreduxwithdanabramov.com/static/dan-abramov-photo.png",
-    name:"Dan Abramov",
-    description:"Making React accessible for users and developers at https://reach.tech . Online learning, workshops, OSS, and consulting.",
-    rank:"4"},
-    {image:"https://learnreduxwithdanabramov.com/static/dan-abramov-photo.png",
-    name:"Dan Abramov",
-    description:"Making React accessible for users and developers at https://reach.tech . Online learning, workshops, OSS, and consulting.",
-    rank:"4"
-    },
-    {image:"https://learnreduxwithdanabramov.com/static/dan-abramov-photo.png",
-    name:"Dan Abramov",
-    description:"Making React accessible for users and developers at https://reach.tech . Online learning, workshops, OSS, and consulting.",
-    rank:"4"
+class SearchView extends React.Component{
+    constructor(props) {
+        super(props);
+        this.state={
+            experts : []
+        }
     }
-    ,
-    {image:"https://learnreduxwithdanabramov.com/static/dan-abramov-photo.png",
-        name:"Dan Abramov",
-        description:"Making React accessible for users and developers at https://reach.tech . Online learning, workshops, OSS, and consulting.",
-        rank:"4"
+    filterItems = (e)=>{
+        e.preventDefault();
+        console.log("jello")
     }
-    ,
-    {image:"https://learnreduxwithdanabramov.com/static/dan-abramov-photo.png",
-        name:"Dan Abramov",
-        description:"Making React accessible for users and developers at https://reach.tech . Online learning, workshops, OSS, and consulting.",
-        rank:"4"
+    componentDidMount() {
+        fetch('/test/users.json')
+            .then(res => res.json())
+            .then(
+                (data) => {
+                this.setState({
+                    experts: data.experts,
+                });
+            },
+                (error)=>{
+                    console.log(error);
+                });
     }
-
-    ];
-
-
-
-
-export default function SearchView() {
-
-    return (
+    render(){
+        return(
         <>
-            <Search></Search>
-            <ProfileList items={profiles}></ProfileList>
-        </>
-    )
-
-
+            <Search onClick={this.filterItems}></Search>
+            <ProfileList items={this.state.experts}></ProfileList>
+        </>)
+    }
 }
+export default SearchView
