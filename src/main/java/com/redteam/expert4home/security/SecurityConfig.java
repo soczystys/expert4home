@@ -63,14 +63,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .roles(ADMIN.name())
                 .build();
         UserDetails user = User.builder()
-                .username("user1")
-                .password(passwordEncoder.encode("user1"))
-                .roles(USER.name())
-                .build();
-        UserDetails user2 = User.builder()
                 .username("login1")
                 .password(passwordEncoder.encode("password1"))
                 .roles(USER.name())
+                .build();
+        UserDetails user2 = User.builder()
+                .username("login2")
+                .password(passwordEncoder.encode("password2"))
+                .roles(EXPERT.name())
                 .build();
         UserDetails expert = User.builder()
                 .username("expert")
