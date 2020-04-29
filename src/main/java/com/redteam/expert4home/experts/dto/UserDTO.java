@@ -20,4 +20,7 @@ public class UserDTO extends EntityModel<UserDTO> {
     private String surname;
     private String login;
     private Boolean expertMode;
+    private String profession;
+    private String description;
+    private int rank;
 }

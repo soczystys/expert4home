@@ -25,6 +25,9 @@ public class Translator {
                 .name(user.getName())
                 .surname(user.getSurname())
                 .expertMode(user.getExpertMode())
+                .description(user.getDescription())
+                .profession(user.getProfession())
+                .rank(user.getRank())
                 .build();
 
         val selfLink = linkTo(methodOn(ExpertsController.class).getSingleUser(userDTO.getId())).withSelfRel();
