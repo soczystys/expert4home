@@ -70,7 +70,10 @@ public class DBInitializer {
                     "surname" + i,
                     "login" + i,
                     "passwordHash" + i,
-                    i % 2 == 0
+                    i % 2 == 0,
+                    "profession"+i,
+                    "description",
+                    i%5
             );
             userList.add(user);
             userRepository.save(user);
