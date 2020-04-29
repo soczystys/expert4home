@@ -1,6 +1,7 @@
 package com.redteam.expert4home.orders.dto;
 
 import lombok.*;
+import org.springframework.hateoas.EntityModel;
 
 import java.time.LocalDateTime;
 
@@ -8,7 +9,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class JobOrderDTO {
+public class JobOrderDTO extends EntityModel<JobOrderDTO> {
+    private Long id;
+
     private LocalDateTime creationDate;
 
     private LocalDateTime dueDate;
