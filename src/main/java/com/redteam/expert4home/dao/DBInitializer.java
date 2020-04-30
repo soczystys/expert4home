@@ -5,6 +5,7 @@ import com.redteam.expert4home.dao.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -16,11 +17,13 @@ public class DBInitializer {
 
     private UserRepository userRepository;
     private JobOrderRepository jobOrderRepository;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public DBInitializer(UserRepository userRepository, JobOrderRepository jobOrderRepository) {
+    public DBInitializer(UserRepository userRepository, JobOrderRepository jobOrderRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.jobOrderRepository = jobOrderRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @EventListener(ApplicationReadyEvent.class)
@@ -33,7 +36,6 @@ public class DBInitializer {
     private void saveOrders(List<User> userList, int orderCount) {
         LocalDateTime currentDate = LocalDateTime.now();
         List<JobOrder> jobOrderList = new ArrayList<>();
-//        userRepository.findAll().forEach(userList::add);
         for (int i = orderCount; i > 0; i--) {
             User user = userList.get(i % userList.size());
             String state;
@@ -70,7 +72,7 @@ public class DBInitializer {
                     "user" + i,
                     "surname" + i,
                     "login" + i,
-                    "passwordHash" + i,
+                    passwordEncoder.encode("password" + i),
                     i % 2 == 0,
                     "profession"+i,
                     "description",
