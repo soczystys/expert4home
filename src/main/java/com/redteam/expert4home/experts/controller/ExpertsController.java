@@ -136,8 +136,9 @@ public class ExpertsController {
 
         if (!pageSizeOptional.isPresent() || !currentPageIndexOptional.isPresent()) {
             Iterable<User> iterator = userRepository.findAll();
-            List<User> experts = StreamSupport
+            List<UserDTO> experts = StreamSupport
                     .stream(iterator.spliterator(), false)
+                    .map(user -> dtoTranslator.createUserDTO(user))
                     .collect(Collectors.toList());
             return ResponseEntity.ok(experts);
         }

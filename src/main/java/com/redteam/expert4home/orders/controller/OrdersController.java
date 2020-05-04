@@ -2,15 +2,20 @@ package com.redteam.expert4home.orders.controller;
 
 import com.redteam.expert4home.dao.JobOrderRepository;
 import com.redteam.expert4home.dao.Translator;
+import com.redteam.expert4home.dao.UserRepository;
 import com.redteam.expert4home.dao.entity.JobOrder;
 import com.redteam.expert4home.orders.dto.JobOrderDTO;
 import com.redteam.expert4home.orders.dto.OrdersPageDTO;
+import lombok.val;
 import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,11 +31,13 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 public class OrdersController {
 
     private final JobOrderRepository jobOrderRepository;
+    private final UserRepository userRepository;
     private final Translator dtoTranslator;
 
     @Autowired
-    public OrdersController(JobOrderRepository jobOrderRepository, Translator dtoTranslator) {
+    public OrdersController(JobOrderRepository jobOrderRepository, UserRepository userRepository, Translator dtoTranslator) {
         this.jobOrderRepository = jobOrderRepository;
+        this.userRepository = userRepository;
         this.dtoTranslator = dtoTranslator;
     }
 
@@ -42,6 +49,92 @@ public class OrdersController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @PostMapping("/order")
+    public ResponseEntity<?> createOrder(@RequestBody JobOrderDTO jobOrderDTO, @RequestParam Long expertId) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        val login = authentication.getName();
+        val user = userRepository.findFirstByLogin(login);
+        val expert = userRepository.findById(expertId);
+
+        if (!user.isPresent())
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User with provided id was not found");
+        if (!expert.isPresent())
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Expert with provided id was not found");
+
+
+        val jobOrder = new JobOrder(
+                jobOrderDTO.getCreationDate(),
+                jobOrderDTO.getDueDate(),
+                jobOrderDTO.getAcceptationDate(),
+                jobOrderDTO.getStartDate(),
+                jobOrderDTO.getDone(),
+                jobOrderDTO.getDescription(),
+                expert.get(),
+                jobOrderDTO.getContact(),
+                jobOrderDTO.getState(),
+                jobOrderDTO.getComment()
+        );
+        jobOrderRepository.save(jobOrder);
+        user.get().getPlacedOrders().add(jobOrder);
+        userRepository.save(user.get());
+
+        val createdOrderDto = dtoTranslator.createJobOrderDTO(jobOrder);
+        return ResponseEntity.created(createdOrderDto.getRequiredLink("self").toUri()).body(createdOrderDto);
+    }
+
+    @PutMapping("/order/{id}")
+    ResponseEntity<?> updateOrder(@PathVariable Long id, @RequestBody JobOrderDTO jobOrderDTO) {
+        val jobOrderOptional = jobOrderRepository.findById(id);
+        if (!jobOrderOptional.isPresent())
+            return ResponseEntity.notFound().build();
+
+        val jobOrder = jobOrderOptional.get();
+        jobOrder.setAcceptationDate(jobOrderDTO.getAcceptationDate());
+        jobOrder.setComment(jobOrderDTO.getComment());
+        jobOrder.setContact(jobOrderDTO.getContact());
+        jobOrder.setCreationDate(jobOrderDTO.getCreationDate());
+        jobOrder.setDescription(jobOrderDTO.getDescription());
+        jobOrder.setDone(jobOrderDTO.getDone());
+        jobOrder.setDueDate(jobOrderDTO.getDueDate());
+        jobOrder.setStartDate(jobOrderDTO.getStartDate());
+        jobOrder.setState(jobOrderDTO.getState());
+
+        jobOrderRepository.save(jobOrder);
+        return ResponseEntity.ok(dtoTranslator.createJobOrderDTO(jobOrder));
+    }
+
+    @PostMapping("/order/test")
+    public ResponseEntity<?> createOrderTest(@RequestBody JobOrderDTO jobOrderDTO, @RequestParam Long expertId) {
+        val login = "login1";
+        val user = userRepository.findFirstByLogin(login);
+        val expert = userRepository.findById(expertId);
+
+        if (!user.isPresent())
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User with provided id was not found");
+        if (!expert.isPresent())
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Expert with provided id was not found");
+
+
+        val jobOrder = new JobOrder(
+                jobOrderDTO.getCreationDate(),
+                jobOrderDTO.getDueDate(),
+                jobOrderDTO.getAcceptationDate(),
+                jobOrderDTO.getStartDate(),
+                jobOrderDTO.getDone(),
+                jobOrderDTO.getDescription(),
+                expert.get(),
+                jobOrderDTO.getContact(),
+                jobOrderDTO.getState(),
+                jobOrderDTO.getComment()
+        );
+        jobOrderRepository.save(jobOrder);
+        user.get().getPlacedOrders().add(jobOrder);
+        userRepository.save(user.get());
+
+        val createdOrderDto = dtoTranslator.createJobOrderDTO(jobOrder);
+        return ResponseEntity.created(createdOrderDto.getRequiredLink("self").toUri()).body(createdOrderDto);
+    }
+
     @GetMapping("/orders")
     public ResponseEntity<?> getOrdersList(
             @RequestParam(name = "pageSize") Optional<Integer> pageSizeOptional,
@@ -49,8 +142,9 @@ public class OrdersController {
 
         if (!pageSizeOptional.isPresent() || !currentPageIndexOptional.isPresent()) {
             Iterable<JobOrder> iterator = jobOrderRepository.findAll();
-            List<JobOrder> orders = StreamSupport
+            List<JobOrderDTO> orders = StreamSupport
                     .stream(iterator.spliterator(), false)
+                    .map(dtoTranslator::createJobOrderDTO)
                     .collect(Collectors.toList());
             return ResponseEntity.ok(orders);
         }
