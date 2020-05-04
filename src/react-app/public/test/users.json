@@ -12,8 +12,8 @@
     },
     {
       "id": "2",
-      "login": "danek",
-      "name": "Dan",
+      "login": "adamek",
+      "name": "Adam",
       "surname": "Abramov",
       "image": "https://learnreduxwithdanabramov.com/static/dan-abramov-photo.png",
       "description": "Hello React accessible for users and developers at https://reach.tech . Online learning, workshops, OSS, and consulting.",
@@ -22,8 +22,8 @@
     },
     {
       "id":"3",
-      "login": "danek",
-      "name": "Dan",
+      "login": "mareczek",
+      "name": "Mark",
       "surname": "Abramov",
       "image": "https://learnreduxwithdanabramov.com/static/dan-abramov-photo.png",
       "description": "Javascript React accessible for users and developers at https://reach.tech . Online learning, workshops, OSS, and consulting.",
@@ -32,8 +32,8 @@
     },
     {
       "id":"4",
-      "login": "danek",
-      "name": "Dan",
+      "login": "franek",
+      "name": "Frank",
       "surname": "Abramov",
       "image": "https://learnreduxwithdanabramov.com/static/dan-abramov-photo.png",
       "description": "Is React accessible for users and developers at https://reach.tech . Online learning, workshops, OSS, and consulting.",

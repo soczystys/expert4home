@@ -101,6 +101,22 @@ const OrderState = {
     COMMENTED: 'COMMENTED'
 };
 
+function getCookie(name) {
+    if (!document.cookie) {
+        return null;
+    }
+
+    const xsrfCookies = document.cookie.split(';')
+        .map(c => c.trim())
+        .filter(c => c.startsWith(name + '='));
+
+    if (xsrfCookies.length === 0) {
+        return null;
+    }
+
+    return decodeURIComponent(xsrfCookies[0].split('=')[1]);
+}
+
 export class OrdersView extends React.Component {
     constructor(props) {
         super(props);
@@ -164,39 +180,50 @@ export class OrdersView extends React.Component {
         });
     }
 
+    putOrder(order) {
+        const xsrfToken = getCookie('XSRF-TOKEN');
+        console.log(xsrfToken);
+        fetch('/api/order/' + order.id, {
+            method: 'PUT',
+            body: JSON.stringify(order),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8",
+                "X-XSRF-TOKEN": xsrfToken},
+            credentials: "include"
+            })
+            .then(res => res.json())
+            .then((data) => console.log(data))
+            .catch(console.log)
+    }
+
     onAcceptOrder(order) {
         order.state = OrderState.ACCEPTED;
-        this.forceUpdate()
-
-        // TODO call api
+        this.forceUpdate();
+        this.putOrder(order);
     }
 
     onRejectOrder(order) {
         order.state = OrderState.REJECTED;
-        this.forceUpdate()
-
-        // TODO call api
+        this.forceUpdate();
+        this.putOrder(order);
     }
 
     onCommentOrder(order) {
+        this.setCommentDialogVisibility(true);
         this.setState(prevState => {
             return{
                 ...prevState,
                 commentedOrder: order
             }
         });
-
-        this.setCommentDialogVisibility(true);
     }
 
     onCommentDialogConfirm(comment) {
+        this.setCommentDialogVisibility(false);
         this.state.commentedOrder.state = OrderState.COMMENTED;
         this.state.commentedOrder.comment = comment;
         this.forceUpdate();
-
-        // TODO call api
-
-        this.setCommentDialogVisibility(false);
+        this.putOrder(this.state.commentedOrder);
     }
 
     render() {
