@@ -89,15 +89,33 @@ public class OrdersController {
             return ResponseEntity.notFound().build();
 
         val jobOrder = jobOrderOptional.get();
-        jobOrder.setAcceptationDate(jobOrderDTO.getAcceptationDate());
-        jobOrder.setComment(jobOrderDTO.getComment());
-        jobOrder.setContact(jobOrderDTO.getContact());
-        jobOrder.setCreationDate(jobOrderDTO.getCreationDate());
-        jobOrder.setDescription(jobOrderDTO.getDescription());
-        jobOrder.setDone(jobOrderDTO.getDone());
-        jobOrder.setDueDate(jobOrderDTO.getDueDate());
-        jobOrder.setStartDate(jobOrderDTO.getStartDate());
-        jobOrder.setState(jobOrderDTO.getState());
+        if (jobOrderDTO.getAcceptationDate() != null) {
+            jobOrder.setAcceptationDate(jobOrderDTO.getAcceptationDate());
+        }
+        if (jobOrderDTO.getComment() != null) {
+            jobOrder.setComment(jobOrderDTO.getComment());
+        }
+        if (jobOrderDTO.getContact() != null) {
+            jobOrder.setContact(jobOrderDTO.getContact());
+        }
+        if (jobOrderDTO.getCreationDate() != null) {
+            jobOrder.setCreationDate(jobOrderDTO.getCreationDate());
+        }
+        if (jobOrderDTO.getDescription() != null) {
+            jobOrder.setDescription(jobOrderDTO.getDescription());
+        }
+        if (jobOrderDTO.getDone()) {
+            jobOrder.setDone(jobOrderDTO.getDone());
+        }
+        if (jobOrderDTO.getDueDate() != null) {
+            jobOrder.setDueDate(jobOrderDTO.getDueDate());
+        }
+        if (jobOrderDTO.getStartDate() != null) {
+            jobOrder.setStartDate(jobOrderDTO.getStartDate());
+        }
+        if (jobOrderDTO.getState() != null) {
+            jobOrder.setState(jobOrderDTO.getState());
+        }
 
         jobOrderRepository.save(jobOrder);
         return ResponseEntity.ok(dtoTranslator.createJobOrderDTO(jobOrder));
