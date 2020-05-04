@@ -104,7 +104,7 @@ public class OrdersController {
         if (jobOrderDTO.getDescription() != null) {
             jobOrder.setDescription(jobOrderDTO.getDescription());
         }
-        if (jobOrderDTO.getDone()) {
+        if (jobOrderDTO.getDone() != null) {
             jobOrder.setDone(jobOrderDTO.getDone());
         }
         if (jobOrderDTO.getDueDate() != null) {

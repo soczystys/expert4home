@@ -185,7 +185,10 @@ export class OrdersView extends React.Component {
         console.log(xsrfToken);
         fetch('/api/order/' + order.id, {
             method: 'PUT',
-            body: JSON.stringify(order),
+            body: JSON.stringify({
+                state: order.state,
+                comment: order.comment
+            }),
             headers: {
                 "Content-type": "application/json; charset=UTF-8",
                 "X-XSRF-TOKEN": xsrfToken},
