@@ -5,6 +5,7 @@ import com.redteam.expert4home.dao.UserRepository;
 import com.redteam.expert4home.dao.entity.User;
 import com.redteam.expert4home.experts.dto.ExpertsPageDTO;
 import com.redteam.expert4home.experts.dto.UserDTO;
+import io.swagger.annotations.ApiParam;
 import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -85,7 +86,7 @@ public class ExpertsController {
 
     @PreAuthorize("#userHandle == authentication.name")
     @PostMapping
-    public ResponseEntity<UserDTO> postSingleUser(@RequestBody User user) {
+    public ResponseEntity<UserDTO> postSingleUser(@ApiParam(hidden = true) @RequestBody User user) {
         Optional<User> userOptional = userRepository.findFirstByLogin(user.getLogin());
         if (!userOptional.isPresent()) {
             userRepository.save(user);
@@ -101,7 +102,7 @@ public class ExpertsController {
 
 
     @PutMapping(path = "{id}")
-    public ResponseEntity putSingleUser(@PathVariable Long id, @RequestBody User user) {
+    public ResponseEntity putSingleUser(@PathVariable Long id,@ApiParam(hidden = true) @RequestBody User user) {
         Optional<User> oldUser = userRepository.findById(id);
 
         System.out.println(oldUser);

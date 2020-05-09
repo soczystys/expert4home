@@ -1,10 +1,7 @@
 package com.redteam.expert4home.experts.dto;
 
 import com.redteam.expert4home.orders.dto.JobOrderDTO;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.hateoas.EntityModel;
 
 import java.util.List;
@@ -13,6 +10,7 @@ import java.util.List;
  * General DTO for User entity
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder

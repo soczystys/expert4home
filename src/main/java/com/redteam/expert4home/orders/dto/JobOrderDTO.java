@@ -6,6 +6,7 @@ import org.springframework.hateoas.EntityModel;
 import java.time.LocalDateTime;
 
 @Data
+@EqualsAndHashCode (callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
