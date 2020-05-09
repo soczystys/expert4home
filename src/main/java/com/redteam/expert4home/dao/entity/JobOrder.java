@@ -48,6 +48,24 @@ public class JobOrder {
         this.state = state;
     }
 
-    @OneToOne
+//    Lombok toString ends up with infinite referencing - leave it be
+    @Override
+    public String toString() {
+        return "JobOrder{" +
+                "id=" + id +
+                ", creationDate=" + creationDate +
+                ", dueDate=" + dueDate +
+                ", acceptationDate=" + acceptationDate +
+                ", startDate=" + startDate +
+                ", done=" + done +
+                ", description='" + description + '\'' +
+                ", state='" + state + '\'' +
+                ", contact='" + contact + '\'' +
+                ", comment='" + comment + '\'' +
+                ", expert=" + expert.getLogin() +
+                '}';
+    }
+
+    @ManyToOne
     private User expert;
 }

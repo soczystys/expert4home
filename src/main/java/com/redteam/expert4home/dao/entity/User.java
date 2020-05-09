@@ -47,4 +47,21 @@ public class User {
         this.description = description;
         this.rank = rank;
     }
+
+//    Lombok toString ends up with infinite referencing - leave it be
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", login='" + login + '\'' +
+                ", passwordHash='" + passwordHash + '\'' +
+                ", expertMode=" + expertMode +
+                ", profession='" + profession + '\'' +
+                ", description='" + description + '\'' +
+                ", rank=" + rank +
+                ", placedOrders=" + placedOrders.toString() +
+                '}';
+    }
 }
