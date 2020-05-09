@@ -8,9 +8,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
-
-import static com.redteam.expert4home.security.UserRole.*;
 
 @Configuration
 @EnableWebSecurity
@@ -30,22 +27,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors().and()
                 .authorizeRequests()
                 .antMatchers("/**")
-                .hasAnyRole(ADMIN.name(), USER.name(), EXPERT.name())
-//                .permitAll();
-                .anyRequest()
-                .authenticated()
-                .and()
-                .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                .and()
-                .formLogin()
+//                .hasAnyRole(ADMIN.name(), USER.name(), EXPERT.name())
+                .permitAll();
+//                .anyRequest()
+//                .authenticated()
+//                .and()
+//                .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+//                .and()
+//                .formLogin()
 //                .loginPage("/login")
 //                .successForwardUrl()
-                .and()
-                .logout().deleteCookies("JSESSIONID")
-                .and()
-                .rememberMe()
+//                .and()
+//                .logout().deleteCookies("JSESSIONID")
+//                .and()
+//                .rememberMe()
 //                .tokenValiditySeconds((int) TimeUnit.SECONDS.toSeconds(20))
-                .key("deafvbtmetenmop");
+//                .key("deafvbtmetenmop");
 //                .rememberMeParameter("remember-me")
 //                .rememberMeCookieName("remember-me");
 //                .alwaysRemember(true);
