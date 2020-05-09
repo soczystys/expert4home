@@ -40,7 +40,7 @@ public class ExpertsController {
     }
 
     @GetMapping(path = "{id}")
-    public ResponseEntity<UserDTO> getSingleUser(@PathVariable Long id) {
+    public ResponseEntity<?> getSingleUser(@PathVariable Long id) {
         Optional<User> user = userRepository.findById(id);
 
         return user.map(value -> ResponseEntity.ok(dtoTranslator.createUserDTO(value)))
@@ -49,7 +49,7 @@ public class ExpertsController {
 
     @PreAuthorize("#login == authentication.name")
     @GetMapping(path = "/secure/{login}")
-    public ResponseEntity<UserDTO> getSingleUserSecured(@PathVariable String login) {
+    public ResponseEntity<?> getSingleUserSecured(@PathVariable String login) {
         Optional<User> user = userRepository.findFirstByLogin(login);
 
         return user.map(value -> ResponseEntity.ok(dtoTranslator.createUserDTO(value)))
@@ -57,7 +57,7 @@ public class ExpertsController {
     }
 
     @GetMapping(path = "/mylogin/{login}")
-    public ResponseEntity<UserDTO> getUserByLogin(@PathVariable String login) {
+    public ResponseEntity<?> getUserByLogin(@PathVariable String login) {
 //        Optional<User> user = userRepository.findByLogin(login);
         Optional<User> userOptional = userRepository.findFirstByLogin(login);
 
@@ -86,7 +86,7 @@ public class ExpertsController {
 
     @PreAuthorize("#userHandle == authentication.name")
     @PostMapping
-    public ResponseEntity<UserDTO> postSingleUser(@ApiParam(hidden = true) @RequestBody User user) {
+    public ResponseEntity<?> postSingleUser(@ApiParam(hidden = true) @RequestBody User user) {
         Optional<User> userOptional = userRepository.findFirstByLogin(user.getLogin());
         if (!userOptional.isPresent()) {
             userRepository.save(user);

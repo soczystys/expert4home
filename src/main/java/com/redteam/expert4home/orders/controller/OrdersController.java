@@ -42,7 +42,7 @@ public class OrdersController {
     }
 
     @GetMapping("/order/{id}")
-    public ResponseEntity<JobOrderDTO> getSingleOrder(@PathVariable Long id) {
+    public ResponseEntity<?> getSingleOrder(@PathVariable Long id) {
         Optional<JobOrder> jobOrder = jobOrderRepository.findById(id);
 
         return jobOrder.map(value -> ResponseEntity.ok(dtoTranslator.createJobOrderDTO(value)))
