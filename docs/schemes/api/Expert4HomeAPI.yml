@@ -106,7 +106,15 @@ components:
     JobOrder:
       type: object
       required:
-        - null
+        - creationDate
+        - dueDate
+        - acceptationDate
+        - startDate
+        - done
+        - description
+        - state
+        - contact
+        - comment
       properties:
         creationDate:
           type: string
@@ -170,6 +178,10 @@ components:
         description:
           type: string
           example: Proud owner of bakary run with tradition for over 50 yeras.
+        jobOrderDTOList:
+          type: array
+          items:
+            $ref: "#/components/schemas/JobOrder"
 
     InventoryItem:
       type: object
