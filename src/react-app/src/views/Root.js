@@ -2,7 +2,8 @@ import React from "react";
 import {
     BrowserRouter as Router,
     Switch,
-    Route
+    Route,
+    Redirect
 } from "react-router-dom";
 import HomeView from "./HomeView"
 import Navigation from "../components/Navigation";
@@ -34,20 +35,21 @@ export class Root extends React.Component {
             })
         } else {
             fetch('/api/users/current')
-                .then(res => { res.text().then(body => {
-                    fetch("/api/users/secure/" + body)
+                .then(res => res.text())
+                .then(currentUserId => {
+                    fetch("/api/users/secure/" + currentUserId)
                         .then(res => res.json())
-                        .then((data) => {
+                        .then(currentUserData => {
                             this.setState(prevState => {
                                 return {
                                     ...prevState,
-                                    userType: (data.expertMode === true ? UserType.EXPERT : UserType.CLIENT)
+                                    userType: (currentUserData.expertMode === true ? UserType.EXPERT : UserType.CLIENT)
                                 }
                             })
                         })
-                    })
+                        .catch(_ => console.log);
                 })
-                .catch(console.log)
+                .catch(_ => console.log)
         }
     }
 

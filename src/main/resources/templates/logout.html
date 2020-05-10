@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+    <title>Expert4Home</title>
+</head>
+<body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <form name="LogoutForm" method="post" action="/process_logout">
+        <input id="_csrf" name="_csrf" type="hidden" />
+        <input type="submit" value="Logout" />
+    </form>
+    <script type="text/javascript">
+        function getCookie(name) {
+            if (!document.cookie) {
+                return null;
+            }
+            const cookies = document.cookie.split(';')
+                .map(c => c.trim())
+                .filter(c => c.startsWith(name + '='));
+
+            if (cookies.length === 0) {
+                return null;
+            }
+
+            return decodeURIComponent(cookies[0].split('=')[1]);
+        }
+
+        window.onload = function() {
+            document.getElementById("_csrf").value = getCookie('XSRF-TOKEN');
+            document.forms["LogoutForm"].submit();
+        }
+    </script>
+</body>
+</html>

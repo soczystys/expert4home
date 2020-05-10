@@ -28,7 +28,8 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.0",
     "svg-inline-loader": "^0.8.2",
-    "webpack-cli": "^3.3.11"
+    "webpack-cli": "^3.3.11",
+    "query-string": "latest"
   },
   "eslintConfig": {
     "extends": "react-app"

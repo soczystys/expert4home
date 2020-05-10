@@ -106,15 +106,15 @@ function getCookie(name) {
         return null;
     }
 
-    const xsrfCookies = document.cookie.split(';')
+    const cookies = document.cookie.split(';')
         .map(c => c.trim())
         .filter(c => c.startsWith(name + '='));
 
-    if (xsrfCookies.length === 0) {
+    if (cookies.length === 0) {
         return null;
     }
 
-    return decodeURIComponent(xsrfCookies[0].split('=')[1]);
+    return decodeURIComponent(cookies[0].split('=')[1]);
 }
 
 export class OrdersView extends React.Component {
@@ -142,7 +142,7 @@ export class OrdersView extends React.Component {
                         }
                     })
                 })
-                .catch(console.log)
+                .catch(_ => console.log)
         } else {
             fetch('/api/orders')
                 .then(res => res.json())
@@ -156,7 +156,7 @@ export class OrdersView extends React.Component {
                         }
                     })
                 })
-                .catch(console.log)
+                .catch(_ => console.log)
         }
     }
 
@@ -182,7 +182,6 @@ export class OrdersView extends React.Component {
 
     putOrder(order) {
         const xsrfToken = getCookie('XSRF-TOKEN');
-        console.log(xsrfToken);
         fetch('/api/order/' + order.id, {
             method: 'PUT',
             body: JSON.stringify({
@@ -196,7 +195,7 @@ export class OrdersView extends React.Component {
             })
             .then(res => res.json())
             .then((data) => console.log(data))
-            .catch(console.log)
+            .catch(_ => console.log)
     }
 
     onAcceptOrder(order) {
