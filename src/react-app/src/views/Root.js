@@ -57,23 +57,31 @@ export class Root extends React.Component {
         return (
             <Router>
                 <Switch>
-                    <Route path="/app/orders">
-                        <Navigation title={"Expert4Home | Zlecenia"} content={<OrdersView userType={this.state.userType} />} userType={this.state.userType} />
+                    <Route path="/app/search">
+                        <Navigation title={"Expert4Home | Specjaliści"} content={<SearchView userType={this.state.userType} />} userType={this.state.userType} />
                     </Route>
                     <Route path="/app/profile">
                         <Navigation title={"Expert4Home | Profil"} content={<ProfileView userType={this.state.userType} />} userType={this.state.userType} />
                     </Route>
-                    <Route path="/app/search">
-                        <Navigation title={"Expert4Home | Specjaliści"} content={<SearchView userType={this.state.userType} />} userType={this.state.userType} />
+                    <Route path="/app/orders">
+                        <Navigation title={"Expert4Home | Zlecenia"} content={<OrdersView userType={this.state.userType} />} userType={this.state.userType} />
                     </Route>
-                    {/*
-                    TODO remove/modify navigation
-                    Added navigation for sample routing, but after making home screen remove it(in project home screen
-                    not contain nav)!
-                    */}
-                    <Route path="/">
-                        <Navigation title={"Expert4Home | Specjaliści"} content={<HomeView />} userType={this.state.userType} />
+                    {
+                        this.state.userType === UserType.EXPERT && <Redirect from="/app" to="/app/profile" />
+                    }
+                    {
+                        this.state.userType === UserType.CLIENT && <Redirect from="/app" to="/app/search" />
+                    }
+                    {
+                        this.state.userType === UserType.NONE && <Redirect from="/app" to="/app" />
+                    }
+                    <Route path="/logout">
+                        <HomeView />
                     </Route>
+                    <Route path="/home">
+                        <HomeView />
+                    </Route>
+                    <Redirect from="/" to="/home" />
                 </Switch>
             </Router>
         );
