@@ -1,5 +1,6 @@
 openapi: 3.0.0
-servers: []
+servers:
+  - url: http://localhost:8080
 info:
   description: Restfull API for Expets4Home application
   version: "1.0.0"
