@@ -42,6 +42,9 @@ dependencies {
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 	testCompileOnly 'org.projectlombok:lombok:1.18.12'
 	testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'
+	testCompile 'org.springframework.boot:spring-boot-starter-test'
+	testCompile 'org.junit.jupiter:junit-jupiter-engine:5.2.0'
+	testCompile 'org.mockito:mockito-junit-jupiter:2.23.0'
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
