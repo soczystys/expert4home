@@ -2,11 +2,13 @@ import React from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Rating from '@material-ui/lab/Rating';
 import Card from '@material-ui/core/Card';
+import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from "@material-ui/core/Box";
 import { red } from '@material-ui/core/colors';
 import Divider from "@material-ui/core/Divider";
+import { Link } from 'react-router-dom'
 
 const useStyles = makeStyles(()=>({
     root: {
@@ -29,16 +31,25 @@ const useStyles = makeStyles(()=>({
     img:{
         height:200,
         width:200,
-        alignSelf:"center"
+        alignSelf:"center",
     },
     description:{
-        color:"gray"
+        color:"gray",
     },
     rating:{
       alignSelf:"center",
     },
     bonusInfo:{
         color: "brown",
+    },
+    link:{
+        color:"white",
+        textDecoration:"none",
+        width: "100%",
+    },
+    buttonBox:{
+        width: "50%",
+        marginLeft: "50%"
     }
 
 }))
@@ -53,6 +64,9 @@ const ProfileOverview = ({image,rank, name, spec, contact, description}) => {
                     <Rating className={overviewStyles.rating} name="ocena" value={rank} disabled/>
                 </Box>
                 <Box className={overviewStyles.column}> 
+                <Button className={overviewStyles.buttonBox} variant="contained" color="primary">
+                    <Link className={overviewStyles.link} to={{pathname: `/app/profile`}} >Wyślij zgłoszenie!</Link>
+                </Button>
                 <Typography variant="h3">
                     {name}
                 </Typography>
