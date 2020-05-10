@@ -10,12 +10,19 @@ info:
   license:
     name: Apache 2.0
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+tags:
+  - name: user
+    description: Operations about user
+  - name: order
+    description: Operations about orders
+
 paths:
   /api/users:
     get:
       summary: get user by id
       description: |
         By passing in the user id you can get data about that user
+      tags: [user]
       parameters:
         - name: pageSize
           in: query
@@ -45,6 +52,7 @@ paths:
       summary: create new user
       description: |
         By passing in the user data you can create new user account
+      tags: [user]
       requestBody:
         description: User object for which to create an account
         content:
@@ -67,6 +75,7 @@ paths:
       summary: get user by id
       description: |
         By passing in the user id you can get data about that user
+      tags: [user]
       parameters:
         - name: id
           in: path
@@ -89,6 +98,7 @@ paths:
       summary: update existing user
       description: |
         By passing in the user data you can update account of existing user
+      tags: [user]
       parameters:
         - name: id
           in: path
@@ -119,6 +129,7 @@ paths:
       summary: get user by login
       description: |
         By passing in the user login you can get data about that user
+      tags: [user]
       parameters:
         - name: login
           in: path
