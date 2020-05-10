@@ -148,6 +148,60 @@ paths:
         "404":
           description: user not found
 
+  /api/order/{id}:
+    get:
+      summary: get order by id
+      description: |
+        By passing in the order id you can get data about that order
+      tags: [order]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: order found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/JobOrderDTO"
+        "400":
+          description: bad input parameter
+        "404":
+          description: order not found
+
+  /api/order/:
+    # TODO: get
+    post:
+      summary: create new order
+      description: |
+        By passing in the order data you can create new job order
+      tags: [order]
+      parameters:
+        - name: expertId
+          in: query
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Order object for which to create new job order
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateJobOrder"
+        required: true
+      responses:
+        "200":
+          description: job order created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/JobOrderDTO"
+        "400":
+          description: bad input parameter
+
 components:
   schemas:
     NewUser:
@@ -183,51 +237,6 @@ components:
         description:
           type: string
           example: Proud owner of bakary run with tradition for over 50 yeras.
-
-    JobOrder:
-      type: object
-      required:
-        - creationDate
-        - dueDate
-        - acceptationDate
-        - startDate
-        - done
-        - description
-        - state
-        - contact
-        - comment
-      properties:
-        creationDate:
-          type: string
-          format: date-time
-          example: "2016-08-29T09:12:33.001Z"
-        dueDate:
-          type: string
-          format: date-time
-          example: "2016-15-29T09:12:33.001Z"
-        acceptationDate:
-          type: string
-          format: date-time
-          example: "2016-12-29T09:12:33.001Z"
-        startDate:
-          type: string
-          format: date-time
-          example: "2016-09-29T09:12:33.001Z"
-        done:
-          type: boolean
-          example: true
-        description:
-          type: string
-          example: My cars doesn't start. There is probably some engine failure
-        state:
-          type: string
-          example: COMPLETED
-        contact:
-          type: string
-          example: "Phone: 123-567-890"
-        comment:
-          type: string
-          example: I pay double if this gests done quck.
 
     UserDTO:
       type: object
@@ -280,3 +289,145 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/UserDTO"
+
+    JobOrder:
+      type: object
+      required:
+        - creationDate
+        - dueDate
+        - acceptationDate
+        - startDate
+        - done
+        - description
+        - state
+        - contact
+        - comment
+      properties:
+        id:
+          type: integer
+          example: 1
+        creationDate:
+          type: string
+          format: date-time
+          example: "2016-08-29T09:12:33.001Z"
+        dueDate:
+          type: string
+          format: date-time
+          example: "2016-15-29T09:12:33.001Z"
+        acceptationDate:
+          type: string
+          format: date-time
+          example: "2016-12-29T09:12:33.001Z"
+        startDate:
+          type: string
+          format: date-time
+          example: "2016-09-29T09:12:33.001Z"
+        done:
+          type: boolean
+          example: true
+        description:
+          type: string
+          example: My cars doesn't start. There is probably some engine failure
+        state:
+          type: string
+          example: COMPLETED
+        contact:
+          type: string
+          example: "Phone: 123-567-890"
+        comment:
+          type: string
+          example: I pay double if this gests done quck.
+
+    CreateJobOrder:
+      type: object
+      required:
+        - creationDate
+        - dueDate
+        - acceptationDate
+        - startDate
+        - done
+        - description
+        - state
+        - contact
+        - comment
+      properties:
+        creationDate:
+          type: string
+          format: date-time
+          example: "2016-08-29T09:12:33.001Z"
+        dueDate:
+          type: string
+          format: date-time
+          example: "2016-15-29T09:12:33.001Z"
+        acceptationDate:
+          type: string
+          format: date-time
+          example: "2016-12-29T09:12:33.001Z"
+        startDate:
+          type: string
+          format: date-time
+          example: "2016-09-29T09:12:33.001Z"
+        done:
+          type: boolean
+          example: true
+        description:
+          type: string
+          example: My cars doesn't start. There is probably some engine failure
+        state:
+          type: string
+          example: COMPLETED
+        contact:
+          type: string
+          example: "Phone: 123-567-890"
+        comment:
+          type: string
+          example: I pay double if this gests done quck.
+
+    JobOrderDTO:
+      # TODO: Add links
+      type: object
+      required:
+        - creationDate
+        - dueDate
+        - acceptationDate
+        - startDate
+        - done
+        - description
+        - state
+        - contact
+        - comment
+      properties:
+        id:
+          type: integer
+          example: 1
+        creationDate:
+          type: string
+          format: date-time
+          example: "2016-08-29T09:12:33.001Z"
+        dueDate:
+          type: string
+          format: date-time
+          example: "2016-15-29T09:12:33.001Z"
+        acceptationDate:
+          type: string
+          format: date-time
+          example: "2016-12-29T09:12:33.001Z"
+        startDate:
+          type: string
+          format: date-time
+          example: "2016-09-29T09:12:33.001Z"
+        done:
+          type: boolean
+          example: true
+        description:
+          type: string
+          example: My cars doesn't start. There is probably some engine failure
+        state:
+          type: string
+          example: COMPLETED
+        contact:
+          type: string
+          example: "Phone: 123-567-890"
+        comment:
+          type: string
+          example: I pay double if this gests done quck.
