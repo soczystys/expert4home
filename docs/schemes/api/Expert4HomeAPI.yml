@@ -19,9 +19,9 @@ tags:
 paths:
   /api/users:
     get:
-      summary: get user by id
+      summary: get list of users
       description: |
-        By passing in the user id you can get data about that user
+        By passing in the user id you can get list of users with optional pagination
       tags: [user]
       parameters:
         - name: pageSize
@@ -172,6 +172,39 @@ paths:
         "404":
           description: order not found
 
+    put:
+      summary: update existing order
+      description: |
+        By passing in the order data you can update existing job order
+      tags: [order]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: expertId
+          in: query
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Order object for which to update data
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/JobOrder"
+        required: true
+      responses:
+        "200":
+          description: job order updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/JobOrderDTO"
+        "400":
+          description: job order not found
+
   /api/order/:
     # TODO: get
     post:
@@ -193,14 +226,14 @@ paths:
               $ref: "#/components/schemas/CreateJobOrder"
         required: true
       responses:
-        "200":
+        "201":
           description: job order created
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/JobOrderDTO"
         "400":
-          description: bad input parameter
+          description: invalid user or expert id
 
 components:
   schemas:
