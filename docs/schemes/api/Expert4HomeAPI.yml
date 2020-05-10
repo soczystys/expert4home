@@ -10,63 +10,132 @@ info:
     name: Apache 2.0
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
 paths:
-  /inventory:
+  /api/users:
     get:
-      summary: searches inventory
-      operationId: searchInventory
+      summary: get user by id
       description: |
-        By passing in the appropriate options, you can search for
-        available inventory in the system
+        By passing in the user id you can get data about that user
       parameters:
-        - in: query
-          name: searchString
-          description: pass an optional search string for looking up inventory
+        - name: pageSize
+          in: query
+          description: Size of response page
           required: false
           schema:
-            type: string
-        - in: query
-          name: skip
-          description: number of records to skip for pagination
+            type: integer
+        - name: pageIndex
+          in: query
+          description: Index of response page
+          required: false
           schema:
             type: integer
-            format: int32
-            minimum: 0
-        - in: query
-          name: limit
-          description: maximum number of records to return
-          schema:
-            type: integer
-            format: int32
-            minimum: 0
-            maximum: 50
       responses:
         "200":
-          description: search results matching criteria
+          description: request valid
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/InventoryItem"
+                oneOf:
+                  - $ref: "#/components/schemas/UserDTO"
+                  - $ref: "#/components/schemas/ExpertsPageDTO"
         "400":
-          description: bad input parameter
+          description: bad input parameters
+
     post:
-      summary: adds an inventory item
-      operationId: addInventory
-      description: Adds an item to the system
-      responses:
-        "201":
-          description: item created
-        "400":
-          description: "invalid input, object invalid"
-        "409":
-          description: an existing item already exists
+      summary: create new user
+      description: |
+        By passing in the user data you can create new user account
       requestBody:
+        description: User object for which to create an account
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/InventoryItem"
-        description: Inventory item to add
+              $ref: "#/components/schemas/NewUser"
+        required: true
+      responses:
+        "200":
+          description: user created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserDTO"
+        "400":
+          description: bad input parameter
+
+  /api/users/{id}:
+    get:
+      summary: get user by id
+      description: |
+        By passing in the user id you can get data about that user
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: user found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserDTO"
+        "400":
+          description: bad input parameter
+        "404":
+          description: user not found
+
+    put:
+      summary: update existing user
+      description: |
+        By passing in the user data you can update account of existing user
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: User object for which to create update data
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NewUser"
+        required: true
+      responses:
+        "201":
+          description: user updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserDTO"
+        "226":
+          description: user not found
+        "400":
+          description: bad input parameter
+
+  /api/users/mylogin/{login}:
+    get:
+      summary: get user by login
+      description: |
+        By passing in the user login you can get data about that user
+      parameters:
+        - name: login
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: user found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserDTO"
+        "400":
+          description: bad input parameter
+        "404":
+          description: user not found
+
 components:
   schemas:
     NewUser:
@@ -183,39 +252,19 @@ components:
           items:
             $ref: "#/components/schemas/JobOrder"
 
-    InventoryItem:
+    ExpertsPageDTO:
       type: object
-      required:
-        - id
-        - name
-        - manufacturer
-        - releaseDate
       properties:
-        id:
-          type: string
-          format: uuid
-          example: d290f1ee-6c54-4b01-90e6-d701748f0851
-        name:
-          type: string
-          example: Widget Adapter
-        releaseDate:
-          type: string
-          format: date-time
-          example: "2016-08-29T09:12:33.001Z"
-        manufacturer:
-          $ref: "#/components/schemas/Manufacturer"
-    Manufacturer:
-      required:
-        - name
-      properties:
-        name:
-          type: string
-          example: ACME Corporation
-        homePage:
-          type: string
-          format: url
-          example: "https://www.acme-corp.com"
-        phone:
-          type: string
-          example: 408-867-5309
-      type: object
+        pageSize:
+          type: integer
+          example: 20
+        currentPageIndex:
+          type: integer
+          example: 3
+        totalPageCount:
+          type: integer
+          example: 10
+        experts:
+          type: array
+          items:
+            $ref: "#/components/schemas/UserDTO"
