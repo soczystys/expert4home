@@ -273,15 +273,11 @@ components:
     NewUser:
       type: object
       required:
-        - id
         - name
         - surname
         - login
         - password
       properties:
-        id:
-          type: integer
-          example: 1
         name:
           type: string
           example: Steven
@@ -338,23 +334,39 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/JobOrder"
+        _links:
+          type: object
+          example:
+            self:
+              href: "http://localhost:8080/api/users/1"
 
     ExpertsPageDTO:
       type: object
       properties:
         pageSize:
           type: integer
-          example: 20
+          example: 3
         currentPageIndex:
           type: integer
-          example: 3
+          example: 1
         totalPageCount:
           type: integer
-          example: 10
+          example: 6
         experts:
           type: array
           items:
             $ref: "#/components/schemas/UserDTO"
+        _links:
+          type: object
+          example:
+            nextPage:
+              href: http://localhost:8080/api/users?pageSize=3&pageIndex=2
+            previousPage:
+              href: http://localhost:8080/api/users?pageSize=3&pageIndex=0
+            firstPage:
+              href: http://localhost:8080/api/users?pageSize=3&pageIndex=0
+            lastPage:
+              href: http://localhost:8080/api/users?pageSize=3&pageIndex=6
 
     JobOrder:
       type: object
@@ -450,7 +462,6 @@ components:
           example: I pay double if this gests done quck.
 
     JobOrderDTO:
-      # TODO: Add links
       type: object
       required:
         - creationDate
@@ -497,20 +508,38 @@ components:
         comment:
           type: string
           example: I pay double if this gests done quck.
+        _links:
+          type: object
+          example:
+            self:
+              href: "http://localhost:8080/api/order/1"
+            expert:
+              href: "http://localhost:8080/api/users/16"
 
     OrdersPageDTO:
       type: object
       properties:
         pageSize:
           type: integer
-          example: 5
+          example: 3
         currentPageIndex:
           type: integer
           example: 1
         totalPageCount:
           type: integer
-          example: 100
+          example: 59
         experts:
           type: array
           items:
             $ref: "#/components/schemas/JobOrderDTO"
+        _links:
+          type: object
+          example:
+            nextPage:
+              href: http://localhost:8080/api/orders?pageSize=3&pageIndex=2
+            previousPage:
+              href: http://localhost:8080/api/orders?pageSize=3&pageIndex=0
+            firstPage:
+              href: http://localhost:8080/api/orders?pageSize=3&pageIndex=0
+            lastPage:
+              href: http://localhost:8080/api/orders?pageSize=3&pageIndex=59
