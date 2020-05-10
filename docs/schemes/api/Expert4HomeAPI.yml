@@ -21,7 +21,7 @@ paths:
     get:
       summary: get list of users
       description: |
-        By passing in the user id you can get list of users with optional pagination
+        Here you can get list of users with optional pagination
       tags: [user]
       parameters:
         - name: pageSize
@@ -43,7 +43,9 @@ paths:
             application/json:
               schema:
                 oneOf:
-                  - $ref: "#/components/schemas/UserDTO"
+                  - type: array
+                    items:
+                      $ref: "#/components/schemas/UserDTO"
                   - $ref: "#/components/schemas/ExpertsPageDTO"
         "400":
           description: bad input parameters
@@ -148,6 +150,67 @@ paths:
         "404":
           description: user not found
 
+  /api/order/:
+    get:
+      summary: get list of job orders
+      description: |
+        Here you can get list of job orders with optional pagination
+      tags: [order]
+      parameters:
+        - name: pageSize
+          in: query
+          description: Size of response page
+          required: false
+          schema:
+            type: integer
+        - name: pageIndex
+          in: query
+          description: Index of response page
+          required: false
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: request valid
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - type: array
+                    items:
+                      $ref: "#/components/schemas/JobOrderDTO"
+                  - $ref: "#/components/schemas/OrdersPageDTO"
+        "400":
+          description: bad input parameters
+
+    post:
+      summary: create new order
+      description: |
+        By passing in the order data you can create new job order
+      tags: [order]
+      parameters:
+        - name: expertId
+          in: query
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Order object for which to create new job order
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateJobOrder"
+        required: true
+      responses:
+        "201":
+          description: job order created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/JobOrderDTO"
+        "400":
+          description: invalid user or expert id
+
   /api/order/{id}:
     get:
       summary: get order by id
@@ -204,36 +267,6 @@ paths:
                 $ref: "#/components/schemas/JobOrderDTO"
         "400":
           description: job order not found
-
-  /api/order/:
-    # TODO: get
-    post:
-      summary: create new order
-      description: |
-        By passing in the order data you can create new job order
-      tags: [order]
-      parameters:
-        - name: expertId
-          in: query
-          required: true
-          schema:
-            type: integer
-      requestBody:
-        description: Order object for which to create new job order
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/CreateJobOrder"
-        required: true
-      responses:
-        "201":
-          description: job order created
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/JobOrderDTO"
-        "400":
-          description: invalid user or expert id
 
 components:
   schemas:
@@ -464,3 +497,20 @@ components:
         comment:
           type: string
           example: I pay double if this gests done quck.
+
+    OrdersPageDTO:
+      type: object
+      properties:
+        pageSize:
+          type: integer
+          example: 5
+        currentPageIndex:
+          type: integer
+          example: 1
+        totalPageCount:
+          type: integer
+          example: 100
+        experts:
+          type: array
+          items:
+            $ref: "#/components/schemas/JobOrderDTO"
