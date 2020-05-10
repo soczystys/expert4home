@@ -36,20 +36,18 @@ export class Search extends React.Component{
         const {classes} = this.props;
         return (
             <>
-                <Paper component="form" className={classes.root} onSubmit={this.props.onClick}>
-                    <InputBase
-                        className={classes.input}
-                        placeholder="Wpisz szukaną frazę"
-                        inputProps={{'label': 'Wpisz szukaną frazę'}}
-                    />
-                    {this.props.isInHome ? (<IconButton component={Link} to="/app/search" type="submit" className={classes.iconButton} aria-label="search">
-                        <SearchIcon/>
-                    </IconButton>):(<IconButton type="submit" className={classes.iconButton} aria-label="search">
-                        <SearchIcon/>
-                    </IconButton>)
-
-                    }
-
+                <Paper component="form" className={classes.root} onSubmit={this.props.onSubmit}>
+                        <InputBase
+                            className={classes.input}
+                            placeholder="Wpisz szukaną frazę"
+                            inputProps={{'label': 'Wpisz szukaną frazę'}}
+                            onChange={this.props.onChange}
+                        />
+                        {this.props.isInHome ? (<IconButton component={Link} to="/app/search" type="submit" className={classes.iconButton} aria-label="search">
+                            <SearchIcon/>
+                        </IconButton>):(<IconButton type="submit" className={classes.iconButton} aria-label="search">
+                                <SearchIcon/>
+                            </IconButton>)}
 
                 </Paper>
 

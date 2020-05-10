@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Divider from "@material-ui/core/Divider";
 import Rating from '@material-ui/lab/Rating';
 import Button from '@material-ui/core/Button';
-
+import { Link } from 'react-router-dom'
 
 
 
@@ -36,12 +36,18 @@ const useStyles = makeStyles(()=>({
     },
     rating:{
       alignSelf:"center",
+    },
+    link:{
+        color:"white",
+        textDecoration:"none",
+        width: "100%"
+
     }
 
 }))
 
 
-const ProfileCard = ({image,name,description,rank}) => {
+const ProfileCard = ({image,id,name,description,rank}) => {
     const cardStyles = useStyles();
     return (
         <>
@@ -55,9 +61,10 @@ const ProfileCard = ({image,name,description,rank}) => {
                         {description}
                     </Typography>
                     <Rating className={cardStyles.rating} name="ocena" value={rank} disabled/>
-                    <Button variant="contained" color="primary">
-                        Zobacz profil!
-                    </Button>
+                        <Button variant="contained" color="primary">
+                            <Link className={cardStyles.link} to={{pathname: `/app/profile`, search:`?id=${id}`}} >Zobacz profil!</Link>
+                        </Button>
+
                 </Card>
 
 
